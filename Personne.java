@@ -1,3 +1,4 @@
+package projet;
 public abstract class Personne{
     String Nom;
     String Prenom;
