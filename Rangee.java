@@ -1,8 +1,10 @@
 public class Rangee{
     int Taille;
     int taille_restante;
-    public Rangee(n){
+    LotPiece place[];
+    public Rangee(int n){
         Taille=n;
         taille_restante=n;
+        place= new LotPiece[n];
     }
 }
