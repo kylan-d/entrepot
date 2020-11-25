@@ -6,7 +6,7 @@ public class LotPiece{
     int volume;
     int id;
     static int i;
-    public LotPiece(String nom,double poids,double prix,int voulume){
+    public LotPiece(String nom,double poids,double prix,int volume){
         this.nom=nom;
         this.poids=poids;
         this.prix=prix;

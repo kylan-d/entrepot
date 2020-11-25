@@ -3,7 +3,11 @@ import java.util.ArrayList;
 public class Meuble{
     double prix;
     ArrayList<LotPiece> liste_lot_piece;
-    public Meuble(ArrayList<LotPiece> liste){
+    String piece;
+    int duree;
+    public Meuble(ArrayList<LotPiece> liste, String piece, int duree){
+        this.piece=piece;
+        this.duree=duree;
         liste_lot_piece=new ArrayList<LotPiece>();
         liste_lot_piece.addAll(liste); //a tester si addAll ca marche bien
         prix=0d;
