@@ -2,7 +2,7 @@ package projet;
 
 import java.util.ArrayList;
 public class Meuble{
-    double prix;  // Je pense qu'il est inutile de rajoute cette variable. Etant donné Qu'une liste de piece est composé de piece. Il suffirait de faire un fonction qui fait la somme des prix des pieces pour le prix d'un lots. Puis pour un meuble Si il a besoins de plusieurs lot, on fait la somme du prix de chaques lots.
+    double prix;  
     ArrayList<LotPiece> liste_lot_piece;
     String piece;
     int duree;
