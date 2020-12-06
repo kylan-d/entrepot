@@ -1,13 +1,10 @@
 package projet;
+
 public class Ouvrier extends Personne{
     String specialite;
-    public Ouvrier(String Nom,String Prenom,String specialite){
-        this.Nom=Nom;
-        this.Prenom=Prenom;
+    public Ouvrier(String nom,String prenom,String specialite){
+        super(nom, prenom, false);
         this.specialite=specialite;
-        id=i;
-        i++;
-        actif=false;
     }
     //public retirerlot(){}
     //public deplacerlot(){}

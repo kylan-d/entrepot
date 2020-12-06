@@ -202,7 +202,18 @@ public class Entrepot{
             }
         }return -1;
     }
-    //public licencierOuvrier(id){}
+    public licencierOuvrier(int id){
+        for(int i = 0; i<chef_equipe.size(); i++){
+            for(int j = 0); <chef_equipe.get(i).tailleq; j++){
+                if(chef_equipe.get(i).liste_ouv[j].actif==false && chef_equipe.get(i).liste_ouv[j].id == id){
+                    chef_equipe.get(i).licencier_ouvrier(j);
+                    return 1;
+                }
+            }
+        }
+        return -1;
+    }
+    
     //public licencierOuvrier(nom prenom){}
     //public licencierOuvrier(nom, prenom, specialite){}
 

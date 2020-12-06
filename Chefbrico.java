@@ -1,12 +1,11 @@
 package projet;
+
 public class Chefbrico extends Chef{
-    public Chefbrico(String Nom,String Prenom){
-        this.Nom=Nom;
-        this.Prenom=Prenom;
-        int tailleeq=0;
-        id=i;
-        i++;
-        actif=false;
+    public Chefbrico(String nom,String prenom){
+        super(nom,prenom,0,false);
     }
-   // public monterMeuble(){}
+
+    // public monterMeuble(){
+
+    // }
 }

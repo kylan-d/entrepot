@@ -1,4 +1,5 @@
 package projet;
+
 public class Rangee{
     int Taille;
     int taille_restante;
