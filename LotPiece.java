@@ -13,7 +13,7 @@ public class LotPiece{
         this.id=i;
         i++;
     }
-    
+    // si dans le fichier texte ou les commandes, on recoit qu'un seul poids/prix comme dans l'exemple on creera la meme piece le nom de fois necessaire
     public void addPiece(String nom, double poids, double prix) {
         if(liste.size()>=volume){return;}
     	Piece p = new Piece(nom, poids, prix);
