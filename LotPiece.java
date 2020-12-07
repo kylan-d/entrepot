@@ -15,11 +15,14 @@ public class LotPiece{
     }
     
     public void addPiece(String nom, double poids, double prix) {
+        if(liste.size()>=volume){return;}
     	Piece p = new Piece(nom, poids, prix);
     	p.nom = nom;
     	p.poids = poids; 
-    	p.prix = prix; 
-    	liste.add(p); 
+    	p.prix = prix;
+    	if(liste.size()==0 || liste.get(0).nom==nom) {
+            liste.add(p);
+        }
     }
      
     public String toString() {
