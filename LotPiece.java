@@ -2,10 +2,10 @@ package projet;
 import java.util.ArrayList;
 
 public class LotPiece{
-	private ArrayList<Piece> liste = new ArrayList<>();
-    private int id;
-    private int volume; 
-    private int prix;
+	 ArrayList<Piece> liste = new ArrayList<>();
+	int id;
+    int volume;
+    int prix;
     static int i = 1;
 
     public LotPiece(int volume){
@@ -33,7 +33,7 @@ public class LotPiece{
     
     
     public class Piece{
-        private String nom;
+         String nom;
         private double poids;
         private double prix;
         

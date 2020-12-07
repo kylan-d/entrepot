@@ -1,8 +1,8 @@
 package projet;
 public abstract class Chef extends Personne{
 
-    private int tailleeq;
-    private Ouvrier liste_ouv[]= new Ouvrier[4];
+     int tailleeq;
+     Ouvrier liste_ouv[]= new Ouvrier[4];
 
     public Chef(String nom, String prenom, int tailleeq, boolean actif){
         super(nom, prenom, actif);

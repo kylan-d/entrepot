@@ -7,13 +7,13 @@ public class Entrepot{
     ArrayList<Chef> chef_equipe= new ArrayList<Chef>();
     Rangee ligne[];
     public Entrepot(int m,int n,double tresorerie){
-        m=this.m;
-        n=this.n;
+        this.m=m;
+        this.n=n;
         ligne=new Rangee[m];
         for(int i=0;i<m;i++){
             ligne[i]=new Rangee(n);
         }
-        tresorerie=this.tresorerie;
+        this.tresorerie=tresorerie;
 
     }
     public void faireInventaire(){
@@ -23,14 +23,15 @@ public class Entrepot{
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 if(ligne[i].place[j]!=null && memid!=ligne[i].place[j].id){
-                    c=c+ ligne[i].place[j].nom +" en "+ ligne[i].place[j].volume +" quantite";
+                    c=c+ ligne[i].place[j].liste.get(0).nom +" en "+ ligne[i].place[j].volume +" quantite, ";
                     memid=ligne[i].place[j].id;
                 }
             }
             placerest=placerest+ligne[i].taille_restante;
         }
+        System.out.println(c);
     }
-    //pas tester !!
+
 
 
     public void payer() {
@@ -60,17 +61,20 @@ public class Entrepot{
                 for(int j=0;j<chef_equipe.size();j++){
                     if(i!=j){
                         a=a+(4-chef_equipe.get(j).tailleeq);
-                    }
+
+
                     if(a>=chef_equipe.get(i).tailleeq){
                         for(int k=0;k<chef_equipe.size();k++){
-                            if(chef_equipe.get(i).tailleeq==0){ chef_equipe.remove(i); return 1;}
-                            if(chef_equipe.get(k).tailleeq<4){
+
+                            while(chef_equipe.get(k).tailleeq<4 && chef_equipe.get(i).tailleeq!=0 && i!=k){
                                 chef_equipe.get(k).liste_ouv[chef_equipe.get(k).tailleeq]=chef_equipe.get(i).liste_ouv[chef_equipe.get(i).tailleeq-1];
-                                chef_equipe.get(i).tailleeq--;
-                                k--;
-                            }
+
+                                chef_equipe.get(k).tailleeq++;
+                                chef_equipe.get(i).tailleeq=chef_equipe.get(i).tailleeq-1;}
+                                if(chef_equipe.get(i).tailleeq==0){ chef_equipe.remove(i); return 1;}
+
                         }
-                    }
+                    }}
                 }
             }
         } return -1;
@@ -85,17 +89,17 @@ public class Entrepot{
             for(int j=0;j<chef_equipe.size();j++){
                 if(i!=j){
                     a=a+(4-chef_equipe.get(j).tailleeq);
-                }
+
                 if(a>=chef_equipe.get(i).tailleeq){
                     for(int k=0;k<chef_equipe.size();k++){
-                        if(chef_equipe.get(i).tailleeq==0){ chef_equipe.remove(i); return 1;}
-                        if(chef_equipe.get(k).tailleeq<4){
+                        while(chef_equipe.get(k).tailleeq<4 && chef_equipe.get(i).tailleeq!=0 && i!=k){
                             chef_equipe.get(k).liste_ouv[chef_equipe.get(k).tailleeq]=chef_equipe.get(i).liste_ouv[chef_equipe.get(i).tailleeq-1];
-                            chef_equipe.get(i).tailleeq--;
-                            k--;
-                        }
+
+                            chef_equipe.get(k).tailleeq++;
+                            chef_equipe.get(i).tailleeq=chef_equipe.get(i).tailleeq-1;}
+                        if(chef_equipe.get(i).tailleeq==0){ chef_equipe.remove(i); return 1;}
                     }
-                }
+                }}
             }
         }
     }} return -1;}
@@ -109,17 +113,17 @@ public class Entrepot{
                     for(int j=0;j<chef_equipe.size();j++){
                         if(i!=j){
                             a=a+(4-chef_equipe.get(j).tailleeq);
-                        }
+
                         if(a>=chef_equipe.get(i).tailleeq){
                             for(int k=0;k<chef_equipe.size();k++){
-                                if(chef_equipe.get(i).tailleeq==0){ chef_equipe.remove(i); return 1;}
-                                if(chef_equipe.get(k).tailleeq<4){
+                                while(chef_equipe.get(k).tailleeq<4 && chef_equipe.get(i).tailleeq!=0 && i!=k){
                                     chef_equipe.get(k).liste_ouv[chef_equipe.get(k).tailleeq]=chef_equipe.get(i).liste_ouv[chef_equipe.get(i).tailleeq-1];
-                                    chef_equipe.get(i).tailleeq--;
-                                    k--;
-                                }
+
+                                    chef_equipe.get(k).tailleeq++;
+                                    chef_equipe.get(i).tailleeq=chef_equipe.get(i).tailleeq-1;}
+                                if(chef_equipe.get(i).tailleeq==0){ chef_equipe.remove(i); return 1;}
                             }
-                        }
+                        }}
                     }
                 }
             }} return -1;}
@@ -133,17 +137,17 @@ public class Entrepot{
                     for(int j=0;j<chef_equipe.size();j++){
                         if(i!=j){
                             a=a+(4-chef_equipe.get(j).tailleeq);
-                        }
+
                         if(a>=chef_equipe.get(i).tailleeq){
                             for(int k=0;k<chef_equipe.size();k++){
-                                if(chef_equipe.get(i).tailleeq==0){ chef_equipe.remove(i); return 1;}
-                                if(chef_equipe.get(k).tailleeq<4){
+                                while(chef_equipe.get(k).tailleeq<4 && chef_equipe.get(i).tailleeq!=0 && i!=k){
                                     chef_equipe.get(k).liste_ouv[chef_equipe.get(k).tailleeq]=chef_equipe.get(i).liste_ouv[chef_equipe.get(i).tailleeq-1];
-                                    chef_equipe.get(i).tailleeq--;
-                                    k--;
-                                }
+
+                                    chef_equipe.get(k).tailleeq++;
+                                    chef_equipe.get(i).tailleeq=chef_equipe.get(i).tailleeq-1;}
+                                if(chef_equipe.get(i).tailleeq==0){ chef_equipe.remove(i); return 1;}
                             }
-                        }
+                        }}
                     }
                 }
             }} return -1;}
@@ -151,24 +155,24 @@ public class Entrepot{
     public int licencierChef(String nom,String prenom){
         int a=0;
         for(int i=0;i<chef_equipe.size();i++){
-            if(chef_equipe.get(i).Nom==nom && chef_equipe.get(i).Prenom==prenom){
+            if(chef_equipe.get(i).nom==nom && chef_equipe.get(i).prenom==prenom){
                 a=0;
                 if(chef_equipe.get(i).actif==false){
                     if(chef_equipe.get(i).tailleeq==0){ chef_equipe.remove(i); return 1;}
                     for(int j=0;j<chef_equipe.size();j++){
                         if(i!=j){
                             a=a+(4-chef_equipe.get(j).tailleeq);
-                        }
+
                         if(a>=chef_equipe.get(i).tailleeq){
                             for(int k=0;k<chef_equipe.size();k++){
-                                if(chef_equipe.get(i).tailleeq==0){ chef_equipe.remove(i); return 1;}
-                                if(chef_equipe.get(k).tailleeq<4){
+                                while(chef_equipe.get(k).tailleeq<4 && chef_equipe.get(i).tailleeq!=0 && i!=k){
                                     chef_equipe.get(k).liste_ouv[chef_equipe.get(k).tailleeq]=chef_equipe.get(i).liste_ouv[chef_equipe.get(i).tailleeq-1];
-                                    chef_equipe.get(i).tailleeq--;
-                                    k--;
-                                }
+
+                                    chef_equipe.get(k).tailleeq++;
+                                    chef_equipe.get(i).tailleeq=chef_equipe.get(i).tailleeq-1;}
+                                if(chef_equipe.get(i).tailleeq==0){ chef_equipe.remove(i); return 1;}
                             }
-                        }
+                        }}
                     }
                 }
             }} return -1;
@@ -202,9 +206,9 @@ public class Entrepot{
             }
         }return -1;
     }
-    public licencierOuvrier(int id){
+    public int licencierOuvrier(int id){
         for(int i = 0; i<chef_equipe.size(); i++){
-            for(int j = 0); <chef_equipe.get(i).tailleq; j++){
+            for(int j = 0;j <chef_equipe.get(i).tailleeq; j++){
                 if(chef_equipe.get(i).liste_ouv[j].actif==false && chef_equipe.get(i).liste_ouv[j].id == id){
                     chef_equipe.get(i).licencier_ouvrier(j);
                     return 1;
