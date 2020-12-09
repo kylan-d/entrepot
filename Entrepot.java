@@ -4,6 +4,10 @@ public class Entrepot{
     int m;
     int n;
     double tresorerie;
+    int nbinactcehefstock;
+    int nbinactchefbrico;
+    int nbinactouvrier;
+    //pour voir le nombre de lot qu'on peut deplacer et faire gagner du temps a la simulation
     ArrayList<Chef> chef_equipe= new ArrayList<Chef>();
     Rangee ligne[];
     public Entrepot(int m,int n,double tresorerie){

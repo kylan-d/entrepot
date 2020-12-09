@@ -8,6 +8,7 @@ public class Chefstock extends Chef{
     public void retirerlot(Entrepot e1,int rangee,int place){
         e1.ligne[rangee].place[place].volume--;
         e1.ligne[rangee].place[place].liste.remove(0);
+        actif=true;
         //on prendra d'abord le lot le plus a droite
     }
 
@@ -36,6 +37,7 @@ public class Chefstock extends Chef{
                 for(int k=0;k<a;k++){
                     e1.ligne[rangee2].place[j-k]=lotdep;
                 }
+                actif=true;
                 return;
             }
         }
@@ -57,6 +59,7 @@ public class Chefstock extends Chef{
                         for(int k=0;k<a;k++){
                             e1.ligne[i].place[j-k]=lot;
                         }
+                        actif=true;
                         return 1;
                     }
                 }
