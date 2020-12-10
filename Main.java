@@ -25,7 +25,8 @@ public class Main{
         //lp.addPiece("Vis", 0.5, 1.99);
         LotPiece lp2 = new LotPiece(5,"vis",3,3);
         e2.recruterchefstock("paula","jacquass");
-        e2.chef_equipe.get(0).ajouterlot(lp,e2);
+        Chefstock aaa= (Chefstock) e2.chef_equipe.get(0);
+        aaa.ajouterlot(lp,e2);
         //lp2.addPiece("Clou", 0.25, 0.99);
 //    	System.out.println(lp.toString());
        System.out.println(e2.ligne[0].place[3]) ;
