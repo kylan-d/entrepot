@@ -6,12 +6,16 @@ public class Meuble{
     String piece;
     int duree;
     
-    public Meuble(ArrayList<paires> liste, String piece, int duree){
+    public Meuble( String piece, int duree){
         this.piece=piece;
         this.duree=duree;
         liste_lot_piece=new ArrayList<paires>();
-        liste_lot_piece.addAll(liste); //a tester si addAll ca marche bien
+        //liste_lot_piece.addAll(liste); //a tester si addAll ca marche bien
 
+    }
+
+    public void addcompo(paires p){
+        liste_lot_piece.add(p);
     }
 public double calculprix(){return 0;}
 }
