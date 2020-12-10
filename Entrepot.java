@@ -8,7 +8,7 @@ public class Entrepot{
     int nbinactchefbrico;
     int nbinactouvrier;
     //pour voir le nombre de lot qu'on peut deplacer et faire gagner du temps a la simulation
-    ArrayList<Chef> chef_equipe= new ArrayList<Chef>();
+    public ArrayList<Chef> chef_equipe=new ArrayList<>();
     Rangee ligne[];
     public Entrepot(int m,int n,double tresorerie){
         this.m=m;
@@ -27,7 +27,7 @@ public class Entrepot{
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 if(ligne[i].place[j]!=null && memid!=ligne[i].place[j].id){
-                    c=c+ ligne[i].place[j].liste.get(0).nom +" en "+ ligne[i].place[j].volume +" quantite, ";
+                    c=c+ ligne[i].place[j].piece.nom +" en "+ ligne[i].place[j].volume +" quantite, ";
                     memid=ligne[i].place[j].id;
                 }
             }
@@ -45,10 +45,12 @@ public class Entrepot{
         }
     }
     public void recruterchefbrico(String nom,String prenom){
+
         chef_equipe.add(new Chefbrico(nom,prenom));
     }
     public void recruterchefstock(String nom,String prenom){
-        chef_equipe.add(new Chefstock(nom,prenom));
+        Chefstock i =new Chefstock(nom,prenom) ;
+        chef_equipe.add(i);
     }
     //pour le licenciement de chef d'equipe, dans les questions-reponses il dit qu'il faut reaffecter l'equipe d'un chef licencier,
     // quand le chef ou l'ouvrier  est actif je pense qu'il faudra faire en sorte qu'il soit renvoyé dans x pas de temps, quand il redeviendra inactif, ou si on peut pas reacter les ouvriers pourquoi pas

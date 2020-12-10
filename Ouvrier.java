@@ -12,7 +12,7 @@ public class Ouvrier extends Personne{
 
     public void retirerlot(Entrepot e1,int rangee,int place){
         e1.ligne[rangee].place[place].volume--;
-        e1.ligne[rangee].place[place].liste.remove(0);
+       // e1.ligne[rangee].place[place].liste.remove(0);
         actif=true;
         //on prendra d'abord le lot le plus a droite
     }

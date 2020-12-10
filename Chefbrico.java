@@ -9,4 +9,9 @@ public class Chefbrico extends Chef{
     // public monterMeuble(){
 
     // }
+
+    public int ajouterlot(LotPiece lp, Entrepot e2){return -1;}
+    public void retirerlot(Entrepot e1,int rangee,int place){return ;}
+
+    public void deplacerlot(Entrepot e1,int idlot,int rangee1, int rangee2){return ;}
 }

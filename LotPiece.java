@@ -2,43 +2,41 @@ package projet;
 import java.util.ArrayList;
 
 public class LotPiece{
-	 ArrayList<Piece> liste = new ArrayList<>();
+	Piece piece;
 	int id;
     int volume;
     int prix;
     static int i = 1;
 
-    public LotPiece(int volume){
+    public LotPiece(int volume,String nom,double poids,double prix){
         this.volume = volume; 
         this.id=i;
         i++;
+        addPiece(nom,poids,prix);
     }
     // si dans le fichier texte ou les commandes, on recoit qu'un seul poids/prix comme dans l'exemple on creera la meme piece le nom de fois necessaire
     public void addPiece(String nom, double poids, double prix) {
-        if(liste.size()>=volume){return;}
-    	Piece p = new Piece(nom, poids, prix);
-    	p.nom = nom;
-    	p.poids = poids; 
-    	p.prix = prix;
-    	if(liste.size()==0 || liste.get(0).nom==nom) {
-            liste.add(p);
-        }
+
+    	piece = new Piece(nom, poids, prix);
+    	//piece.nom = nom;
+    	//piece.poids = poids;
+    	//piece.prix = prix;
     }
      
     public String toString() {
     	String informations = "";
-    	for(int i = 0; i<liste.size(); i++) {
-    		informations += "{ "+ liste.get(i).toString() + "} \n" ;
-    	}
-    	return " { ID du lot : "+ this.id +" | Volume : " + this.volume + " } \n" + " Liste des pièces : \n"+ informations;
+    		informations += "{type:"+piece.nom + "} \n" ;
+        informations += "{poids:"+piece.poids + "} \n" ;
+        informations += "{prix:"+piece.prix + "} \n" ;
+    	return " { ID du lot : "+ this.id +" | Volume : " + this.volume + " } \n" + " pièce : \n"+ informations;
     }
     
     
     
     public class Piece{
          String nom;
-        private double poids;
-        private double prix;
+        double poids;
+        double prix;
         
         public Piece(String nom, double poids, double prix){
             this.nom = nom;

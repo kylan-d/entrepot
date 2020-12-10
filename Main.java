@@ -18,20 +18,22 @@ public class Main{
     			+ "                                    \r\n"
     			+ "                                    ");
 
-        //Entrepot e1= new Entrepot(5,5,10000);
+        Entrepot e2= new Entrepot(5,5,10000);
         //Rangee a= new Rangee(7);
-       //LotPiece lp = new LotPiece(4);
+       LotPiece lp = new LotPiece(4,"plache",4,20);
        //lp.addPiece("Planche", 3.5, 19.99);
         //lp.addPiece("Vis", 0.5, 1.99);
-        //LotPiece lp2 = new LotPiece(5);
+        LotPiece lp2 = new LotPiece(5,"vis",3,3);
+        e2.recruterchefstock("paula","jacquass");
+        e2.chef_equipe.get(0).ajouterlot(lp,e2);
         //lp2.addPiece("Clou", 0.25, 0.99);
 //    	System.out.println(lp.toString());
-        //e1.ligne[1].place[1] = lp;
+       System.out.println(e2.ligne[0].place[3]) ;
         //System.out.println(lp.id);
-   	    //e1.ligne[1].place[2] = lp2;
+   	    e2.ligne[1].place[2] = lp2;
 
 
-        //e1.faireInventaire();
+        e2.faireInventaire();
         //     Rangee a= new Rangee(7);
         //     a.place[1]=new LotPiece("vis",5.5,4.0,2);
         //     System.out.println(a.place[1]);
@@ -121,7 +123,7 @@ System.out.println(che.substring(0,4));
                 Scanner scl= new Scanner(line);
                 while(scl.hasNext()){
                 line2=scl.next();
-                line2=line2.substring(1,line2.indexOf('>'));
+                //line2=line2.substring(1,line2.indexOf('>'));
                 a=Integer.valueOf(line2);
 
                 if(a!=i){a=-1;System.out.println("probleme id pas");break;}

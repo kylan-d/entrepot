@@ -22,4 +22,10 @@ public abstract class Chef extends Personne{
         liste_ouv[k]=null;
         tailleeq--;
     }
+
+    public abstract int ajouterlot(LotPiece lp, Entrepot e2);
+    public abstract void retirerlot(Entrepot e1,int rangee,int place);
+
+    public abstract void deplacerlot(Entrepot e1,int idlot,int rangee1, int rangee2);
+
 }
