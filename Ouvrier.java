@@ -9,9 +9,11 @@ public class Ouvrier extends Personne{
     }
     //je pense qu'il  faudrait set l'ouvrier en actif quand il recoit un truc a faire mais j'ai des sur ou le faire et comment le eemettre en inactif
 
-
-    public void retirerlot(Entrepot e1,int rangee,int place){
-        e1.ligne[rangee].place[place].volume--;
+//attention a ce que ce soit la premiere place de lot et qui vol soit inferieur au volume totale du lot
+    public void retirerlot(Entrepot e1,int rangee,int place,int vol){
+        for(int j=0;j<vol;j++) {
+            e1.ligne[rangee].place[place+j].volume--;
+        }
        // e1.ligne[rangee].place[place].liste.remove(0);
         actif=true;
         //on prendra d'abord le lot le plus a droite
@@ -72,6 +74,9 @@ public class Ouvrier extends Personne{
         }
         return -1;
     }
-    public void monterMeuble(Meuble m){}
+    public void monterMeuble(Meuble m){
+        boolean actif=true;
+        pas_restantmeuble=m.duree;
+    }
 
 }

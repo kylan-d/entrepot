@@ -5,9 +5,12 @@ public class Chefstock extends Chef{
         super(nom, prenom, 0, false);
     }
 
-    public void retirerlot(Entrepot e1,int rangee,int place){
-        e1.ligne[rangee].place[place].volume--;
-       // e1.ligne[rangee].place[place].liste.remove(0);
+    //attention a ce que ce soit la premiere place de lot et qui vol soit inferieur au volume totale du lot
+    public void retirerlot(Entrepot e1,int rangee,int place,int vol){
+        for(int j=0;j<vol;j++) {
+            e1.ligne[rangee].place[place+j].volume--;
+        }
+        // e1.ligne[rangee].place[place].liste.remove(0);
         actif=true;
         //on prendra d'abord le lot le plus a droite
     }

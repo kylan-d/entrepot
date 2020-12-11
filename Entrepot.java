@@ -227,7 +227,97 @@ public class Entrepot{
     //public licencierOuvrier(nom prenom){}
     //public licencierOuvrier(nom, prenom, specialite){}
 
+//a chaque fois je retourne -1 si ca a pas pu se faire, 1 sinon
+    //j'ai pas testé
+public int ajoutlot(LotPiece lot){
+        for(int i=0;i<chef_equipe.size();i++){
+            if(chef_equipe.get(i) instanceof Chefstock && chef_equipe.get(i).actif==false){
+                Chefstock a= (Chefstock)chef_equipe.get(i);
+                int b=a.ajouterlot(lot,this);
+                return b;
+            }
+            for(int j=0;j<4;j++){
+                if(chef_equipe.get(i).liste_ouv[j]!=null){
+                    if(chef_equipe.get(i).liste_ouv[j].actif==false){
+                        return chef_equipe.get(i).liste_ouv[j].ajouterlot(lot,this);
 
+                    }
+                }
+            }
+        }
+        return -1;
+}
+    public int retirerlot(int m, int n, int vol){
+        for(int i=0;i<chef_equipe.size();i++){
+            if(chef_equipe.get(i) instanceof Chefstock && chef_equipe.get(i).actif==false){
+                Chefstock a= (Chefstock)chef_equipe.get(i);
+                a.retirerlot(this,m,n,vol);
+                return 1;
+            }
+            for(int j=0;j<4;j++){
+                if(chef_equipe.get(i).liste_ouv[j]!=null){
+                    if(chef_equipe.get(i).liste_ouv[j].actif==false){
+                        chef_equipe.get(i).liste_ouv[j].retirerlot(this,m,n,vol);
+                        return 1;
 
+                    }
+                }
+            }
+        }
+       return -1;
+    }
 
+public int  montermeuble(Meuble m){
+      //  ArrayList<Integer>  pm=new ArrayList<Integer>();
+    //ArrayList<Integer>  pn=new ArrayList<Integer>();
+        int a=1;
+    for(int i=0;i<m.liste_lot_piece.size();i++){
+        if(a!=1){return -1;}
+        a=0;
+        for(int im=0;im<this.m;im++){
+            for(int in=0;in<this.n;in++){
+                if(ligne[im].place[in]!=null){
+                    if(ligne[im].place[in].piece.nom.equals(m.liste_lot_piece.get(i).type)){
+                        if(ligne[im].place[in].volume>m.liste_lot_piece.get(i).volume){
+                            double pr=ligne[im].place[in].piece.prix;
+                            int b=retirerlot(im,in,m.liste_lot_piece.get(i).volume);
+                            if(b==-1){return -1;}
+                            m.prix=m.prix+(m.liste_lot_piece.get(i).volume*pr);
+                            m.liste_lot_piece.get(i).volume=0;
+                            a=1;
+
+                        }
+                        else{
+                            double pr2=ligne[im].place[in].piece.prix;
+                            int b2=retirerlot(im,in,ligne[im].place[in].volume);
+                            if(b2==-1){return -1;}
+                            m.prix=m.prix+(m.liste_lot_piece.get(i).volume*pr2);
+                            m.liste_lot_piece.get(i).volume=m.liste_lot_piece.get(i).volume-ligne[im].place[in].volume;
+                        }
+                    }
+                }
+            }
+            if(a==1){break;}
+        }
+
+    }
+    for(int i=0;i<chef_equipe.size();i++){
+        if(chef_equipe.get(i) instanceof Chefbrico && chef_equipe.get(i).actif==false){
+            Chefbrico c= (Chefbrico)chef_equipe.get(i);
+            c.monterMeuble(m);
+            tresorerie=tresorerie+m.prix;
+            return 1;
+        }
+        for(int j=0;j<4;j++){
+            if(chef_equipe.get(i).liste_ouv[j]!=null){
+                if(chef_equipe.get(i).liste_ouv[j].actif==false && chef_equipe.get(i).liste_ouv[j].specialite.equals(m.piece)){
+                    chef_equipe.get(i).liste_ouv[j].monterMeuble(m);
+                    tresorerie=tresorerie+m.prix;
+                    return 1;
+                }
+            }
+        }
+    }
+    return -1;
+}
 }

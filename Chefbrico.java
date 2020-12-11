@@ -6,7 +6,10 @@ public class Chefbrico extends Chef{
         super(nom,prenom,0,false);
     }
 
-    // public monterMeuble(){
+    public void monterMeuble(Meuble m){
+        boolean actif=true;
+        pas_restantmeuble=m.duree;
+    }
 
     // }
 

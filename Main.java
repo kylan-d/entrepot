@@ -33,7 +33,6 @@ public class Main{
         //System.out.println(lp.id);
    	    e2.ligne[1].place[2] = lp2;
 
-
         e2.faireInventaire();
         //     Rangee a= new Rangee(7);
         //     a.place[1]=new LotPiece("vis",5.5,4.0,2);
@@ -99,7 +98,7 @@ System.out.println(che.substring(0,4));
        // } catch (IOException e) {
          //   e.printStackTrace();
         //}
-        ArrayList<String> choseafaire;
+       // ArrayList<String> choseafaire;
         //parfois on pas d'ouvrier inactif on pourra donc pas le faire maitenant et faut trouver un moyen de remettre a plus tard
 
         //juste une base qu'on devra utiliser pour chaque differente stratégie pour trouver la mieux
@@ -130,8 +129,16 @@ System.out.println(che.substring(0,4));
                 if(a!=i){a=-1;System.out.println("probleme id pas");break;}
                     line2=scl.next();
                 if(line2.equals("rien")){System.out.println("on fait rien");break;}
+                //pour monter meuble si on peut pas le faire par manque d'ouvrier, on doit l'etaler sur plusieurs pas de temps
+                    //pour lot par manque de place ou meuble par manque de piece, on refuse
                     if(line2.equals("meuble")){System.out.println("on monte un meuble");break;}
-                    if(line2.equals("lot")){System.out.println("on range un lot");break;}
+                    if(line2.equals("lot")){System.out.println("on range un lot");
+                    String nom=scl.next();
+                    double poids=Double.valueOf(scl.next());
+                    double prix=Double.valueOf(scl.next());
+                    int volume=Integer.valueOf(scl.next());
+                    e1.ajoutlot(new LotPiece(volume,nom,poids,prix));
+                    break;}
 
 
                 }

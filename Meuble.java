@@ -5,6 +5,7 @@ public class Meuble{
     ArrayList<paires> liste_lot_piece;
     String piece;
     int duree;
+    double prix;
     
     public Meuble( String piece, int duree){
         this.piece=piece;
