@@ -9,6 +9,7 @@ public class Chefstock extends Chef{
     public void retirerlot(Entrepot e1,int rangee,int place,int vol){
         for(int j=0;j<vol;j++) {
             e1.ligne[rangee].place[place+j].volume--;
+            e1.ligne[rangee].place[place+j]=null;
         }
         // e1.ligne[rangee].place[place].liste.remove(0);
         actif=true;

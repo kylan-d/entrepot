@@ -6,8 +6,10 @@ public class Meuble{
     String piece;
     int duree;
     double prix;
+    String nom;
     
-    public Meuble( String piece, int duree){
+    public Meuble( String nom,String piece, int duree){
+        this.nom=nom;
         this.piece=piece;
         this.duree=duree;
         liste_lot_piece=new ArrayList<paires>();

@@ -267,10 +267,13 @@ public int ajoutlot(LotPiece lot){
        return -1;
     }
 
+//le seul proble c'est que si y'a pas assez d'ouvrier pour tout deplacer bah on le fais pas alors qu'on est censé demander au non actif de deplacer les lots restant dans les pas suivants
+    //mais je me suis dis que c'etait pas le plus urgent
 public int  montermeuble(Meuble m){
-      //  ArrayList<Integer>  pm=new ArrayList<Integer>();
-    //ArrayList<Integer>  pn=new ArrayList<Integer>();
+      ArrayList<Integer>  pm=new ArrayList<Integer>();
+    ArrayList<Integer>  pn=new ArrayList<Integer>();
         int a=1;
+
     for(int i=0;i<m.liste_lot_piece.size();i++){
         if(a!=1){return -1;}
         a=0;
@@ -278,7 +281,7 @@ public int  montermeuble(Meuble m){
             for(int in=0;in<this.n;in++){
                 if(ligne[im].place[in]!=null){
                     if(ligne[im].place[in].piece.nom.equals(m.liste_lot_piece.get(i).type)){
-                        if(ligne[im].place[in].volume>m.liste_lot_piece.get(i).volume){
+                        if(ligne[im].place[in].volume>=m.liste_lot_piece.get(i).volume){
                             double pr=ligne[im].place[in].piece.prix;
                             int b=retirerlot(im,in,m.liste_lot_piece.get(i).volume);
                             if(b==-1){return -1;}
@@ -289,10 +292,12 @@ public int  montermeuble(Meuble m){
                         }
                         else{
                             double pr2=ligne[im].place[in].piece.prix;
+                            int volret=ligne[im].place[in].volume;
                             int b2=retirerlot(im,in,ligne[im].place[in].volume);
+
                             if(b2==-1){return -1;}
                             m.prix=m.prix+(m.liste_lot_piece.get(i).volume*pr2);
-                            m.liste_lot_piece.get(i).volume=m.liste_lot_piece.get(i).volume-ligne[im].place[in].volume;
+                            m.liste_lot_piece.get(i).volume=m.liste_lot_piece.get(i).volume-volret;
                         }
                     }
                 }
@@ -319,5 +324,32 @@ public int  montermeuble(Meuble m){
         }
     }
     return -1;
+}
+
+public void rendreactif(){
+        for(int i=0;i<chef_equipe.size();i++){
+            if(chef_equipe.get(i) instanceof Chefbrico){
+                if(((Chefbrico) chef_equipe.get(i)).pas_restantmeuble>0){
+                    ((Chefbrico) chef_equipe.get(i)).pas_restantmeuble--;
+                    if(((Chefbrico) chef_equipe.get(i)).pas_restantmeuble==0){
+                        chef_equipe.get(i).actif=false;
+                    }
+                }
+
+           }
+            else{
+                chef_equipe.get(i).actif=false;
+            }
+            for(int j=0;j<4;j++){
+                if(chef_equipe.get(i).liste_ouv[j]!=null){
+                    if(chef_equipe.get(i).liste_ouv[j].pas_restantmeuble>0){
+                        chef_equipe.get(i).liste_ouv[j].pas_restantmeuble--;
+                        if(chef_equipe.get(i).liste_ouv[j].pas_restantmeuble==0){
+                            chef_equipe.get(i).liste_ouv[j].actif=false;
+                        }
+                    }
+                }
+            }
+        }
 }
 }

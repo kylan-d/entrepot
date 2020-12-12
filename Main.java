@@ -45,10 +45,7 @@ public class Main{
             // f=f-c;
             // System.out.println(f);
 
-            // e1.recruterchefbrico("paul","jacques");
-             //e1.recruterchefstock("paulo","jacquot");
-             //e1.recruterchefstock("paula","jacquass");
-             //e1.recruterchefbrico("pauli","jacquie");
+
              //System.out.println(e1.chef_equipe.get(0).nom);
              //System.out.println(e1.chef_equipe.size());
             // e1.chef_equipe.get(0).actif=true;
@@ -111,6 +108,18 @@ System.out.println(che.substring(0,4));
             int n=Integer.valueOf(sc.next());
             sc.nextLine();
             Entrepot e1=new Entrepot(m,n,tresor);
+            e1.recruterchefbrico("paul","jacques");
+            e1.recruterchefstock("paulo","jacquot");
+            e1.recruterchefstock("paula","jacquass");
+            e1.recruterchefbrico("pauli","jacquie");
+            e1.recruterchefbrico("pauly","jacquesi");
+            e1.recruterchefstock("paulou","jacquotu");
+            e1.recruterchefstock("paulai","jacquassj");
+            e1.recruterouvrier("paulie","jacquiez","cuisine");
+            e1.recruterouvrier("pauler","jacquese", "salledebain");
+            e1.recruterouvrier("pauloj","jacquott","toilette");
+            e1.recruterouvrier("paulak","jacquassd","salleamanger");
+            e1.recruterouvrier("paulim","jacquier","salle");
             String line=null;
             int a=2;
             String line2;
@@ -131,7 +140,21 @@ System.out.println(che.substring(0,4));
                 if(line2.equals("rien")){System.out.println("on fait rien");break;}
                 //pour monter meuble si on peut pas le faire par manque d'ouvrier, on doit l'etaler sur plusieurs pas de temps
                     //pour lot par manque de place ou meuble par manque de piece, on refuse
-                    if(line2.equals("meuble")){System.out.println("on monte un meuble");break;}
+                    if(line2.equals("meuble")){System.out.println("on monte un meuble");
+                        String nom=scl.next();
+                        String piece=scl.next();
+                        int duree=Integer.valueOf(scl.next());
+                        Meuble meuble=new Meuble(nom,piece,duree);
+                        while(scl.hasNext()){
+                            String type=scl.next();
+                            int volume=Integer.valueOf(scl.next());
+                            meuble.addcompo(new paires(volume,type));
+                            System.out.println("on rajoute une paire");
+
+                    }
+                        e1.montermeuble(meuble);
+                        System.out.println(e1.tresorerie);
+                    break;}
                     if(line2.equals("lot")){System.out.println("on range un lot");
                     String nom=scl.next();
                     double poids=Double.valueOf(scl.next());
@@ -145,6 +168,8 @@ System.out.println(che.substring(0,4));
                 i++;
                 scl.close();
                 e1.payer();
+                e1.rendreactif();
+                e1.faireInventaire();
                 //+mettre les actif en inactif sauf si il construit un meuble et il lui reste du temps pour construire ce meuble
 
 
@@ -162,4 +187,8 @@ System.out.println(che.substring(0,4));
             e.printStackTrace();
         }
         System.out.println("line");
-    }}
+
+    }
+
+}
+
