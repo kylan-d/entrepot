@@ -268,14 +268,15 @@ public int ajoutlot(LotPiece lot){
     }
 
 //le seul proble c'est que si y'a pas assez d'ouvrier pour tout deplacer bah on le fais pas alors qu'on est censé demander au non actif de deplacer les lots restant dans les pas suivants
-    //mais je me suis dis que c'etait pas le plus urgent
+    //mais je me suis dis que c'etait pas le plus urgent, enfin si je le fait mais je sais pas si c'est le mieux
 public int  montermeuble(Meuble m){
       ArrayList<Integer>  pm=new ArrayList<Integer>();
     ArrayList<Integer>  pn=new ArrayList<Integer>();
         int a=1;
-
+        int pierest=0;
     for(int i=0;i<m.liste_lot_piece.size();i++){
-        if(a!=1){return -1;}
+        System.out.println(a);
+        if(a!=1){pierest++;}
         a=0;
         for(int im=0;im<this.m;im++){
             for(int in=0;in<this.n;in++){
@@ -306,6 +307,7 @@ public int  montermeuble(Meuble m){
         }
 
     }
+    if(pierest!=0){return -1;}
     for(int i=0;i<chef_equipe.size();i++){
         if(chef_equipe.get(i) instanceof Chefbrico && chef_equipe.get(i).actif==false){
             Chefbrico c= (Chefbrico)chef_equipe.get(i);

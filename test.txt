@@ -1,5 +1,19 @@
 50000 2 7
-1 rien 5 7
-2 lot vis 3 3 3
-3 lot planche 3 3 3
-4 meuble bureau salle 2 vis 3 planche 1
+1 rien
+2 lot planche 3 3 3
+3 meuble bureau salle 2 vis 3 planche 1
+4 rien
+5 rien
+6 lot vis 3 3 3
+7 rien
+8 lot vis 3 3 3
+9 lot clou 5 5000 5
+10 lot equerre 6 6 6
+11 rien 
+12 meuble lit chambre 6 clou 1
+13 meuble lit chambre 6 clou 1
+14 meuble lit chambre 6 clou 1
+15 meuble lit chambre 6 clou 1
+16 meuble lit chambre 6 clou 1
+17 meuble lit chambre 6 clou 1
+18 meuble lit chambre 6 clou 1

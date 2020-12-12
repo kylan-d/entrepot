@@ -95,11 +95,12 @@ System.out.println(che.substring(0,4));
        // } catch (IOException e) {
          //   e.printStackTrace();
         //}
-       // ArrayList<String> choseafaire;
+       ArrayList<Meuble> meublepasfini=new ArrayList<Meuble>();
         //parfois on pas d'ouvrier inactif on pourra donc pas le faire maitenant et faut trouver un moyen de remettre a plus tard
 
         //juste une base qu'on devra utiliser pour chaque differente stratégie pour trouver la mieux
         try{
+            //on pourrait demander le nom du fichier
             Scanner sc= new Scanner(new FileReader("C:\\test.txt"));
            // int a=sc.rea;
            // System.out.println(a);
@@ -149,10 +150,14 @@ System.out.println(che.substring(0,4));
                             String type=scl.next();
                             int volume=Integer.valueOf(scl.next());
                             meuble.addcompo(new paires(volume,type));
-                            System.out.println("on rajoute une paire");
 
                     }
-                        e1.montermeuble(meuble);
+                        int test_meuble=e1.montermeuble(meuble);
+                        System.out.println(test_meuble);
+                        if(test_meuble==-1){
+
+                            meublepasfini.add(meuble);
+                        }
                         System.out.println(e1.tresorerie);
                     break;}
                     if(line2.equals("lot")){System.out.println("on range un lot");
@@ -167,9 +172,23 @@ System.out.println(che.substring(0,4));
                 }
                 i++;
                 scl.close();
+                int imeu=0;
+                while(imeu<meublepasfini.size()){
+
+                    int testm= e1.montermeuble(meublepasfini.get(imeu));
+                    if(testm==1){
+                        meublepasfini.remove(imeu);
+
+                    }
+                    else{
+                        imeu++;
+                    }
+
+                }
                 e1.payer();
                 e1.rendreactif();
                 e1.faireInventaire();
+                System.out.println(e1.tresorerie);
                 //+mettre les actif en inactif sauf si il construit un meuble et il lui reste du temps pour construire ce meuble
 
 
