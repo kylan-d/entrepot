@@ -194,32 +194,35 @@ public class Entrepot{
     }
     public int licencierOuvrier(){
         for(int i=0;i<chef_equipe.size();i++){
-            for(int j=0;j<chef_equipe.get(i).tailleeq;j++){
+            for(int j=0;j<4;j++){
+                if(chef_equipe.get(i).liste_ouv[j]!=null){
                 if(chef_equipe.get(i).liste_ouv[j].actif==false){
                     chef_equipe.get(i).licencier_ouvrier(j);
                     return 1;
-                }
+                }}
             }
         }return -1;
     }
     public int licencierOuvrier(String  specialite){
         for(int i=0;i<chef_equipe.size();i++){
             for(int j=0;j<chef_equipe.get(i).tailleeq;j++){
+                if(chef_equipe.get(i).liste_ouv[j]!=null){
                 if(chef_equipe.get(i).liste_ouv[j].actif==false && chef_equipe.get(i).liste_ouv[j].specialite==specialite){
                     chef_equipe.get(i).licencier_ouvrier(j);
                     return 1;
-                }
+                }}
             }
         }return -1;
     }
     public int licencierOuvrier(int id){
         for(int i = 0; i<chef_equipe.size(); i++){
             for(int j = 0;j <chef_equipe.get(i).tailleeq; j++){
+                if(chef_equipe.get(i).liste_ouv[j]!=null){
                 if(chef_equipe.get(i).liste_ouv[j].actif==false && chef_equipe.get(i).liste_ouv[j].id == id){
                     chef_equipe.get(i).licencier_ouvrier(j);
                     return 1;
                 }
-            }
+            }}
         }
         return -1;
     }
@@ -267,6 +270,28 @@ public int ajoutlot(LotPiece lot){
        return -1;
     }
 
+    public int deplacerlot(int m1, int m2, int idlot){
+        int res=-1;
+        int test=0;
+        for(int i=0;i<chef_equipe.size();i++){
+            if(chef_equipe.get(i) instanceof Chefstock && chef_equipe.get(i).actif==false){
+                Chefstock a= (Chefstock)chef_equipe.get(i);
+                res=a.deplacerlot(this,m1,m2,idlot);
+                break;
+            }
+            for(int j=0;j<4;j++){
+                if(chef_equipe.get(i).liste_ouv[j]!=null){
+                    if(chef_equipe.get(i).liste_ouv[j].actif==false){
+                        res =chef_equipe.get(i).liste_ouv[j].deplacerlot(this,m1,m2,idlot);
+                        test=1;
+                        break;
+
+                    }
+                }
+            }if(test!=0){break;}
+        }
+        return res;
+    }
 //le seul proble c'est que si y'a pas assez d'ouvrier pour tout deplacer bah on le fais pas alors qu'on est censé demander au non actif de deplacer les lots restant dans les pas suivants
     //mais je me suis dis que c'etait pas le plus urgent, enfin si je le fait mais je sais pas si c'est le mieux
 public int  montermeuble(Meuble m){
@@ -275,8 +300,10 @@ public int  montermeuble(Meuble m){
         int a=1;
         int pierest=0;
     for(int i=0;i<m.liste_lot_piece.size();i++){
-        System.out.println(a);
-        if(a!=1){pierest++;}
+
+        if(a!=1){pierest++;
+            }
+
         a=0;
         for(int im=0;im<this.m;im++){
             for(int in=0;in<this.n;in++){
@@ -285,8 +312,10 @@ public int  montermeuble(Meuble m){
                         if(ligne[im].place[in].volume>=m.liste_lot_piece.get(i).volume){
                             double pr=ligne[im].place[in].piece.prix;
                             int b=retirerlot(im,in,m.liste_lot_piece.get(i).volume);
+
                             if(b==-1){return -1;}
                             m.prix=m.prix+(m.liste_lot_piece.get(i).volume*pr);
+
                             m.liste_lot_piece.get(i).volume=0;
                             a=1;
 
@@ -300,14 +329,18 @@ public int  montermeuble(Meuble m){
                             m.prix=m.prix+(m.liste_lot_piece.get(i).volume*pr2);
                             m.liste_lot_piece.get(i).volume=m.liste_lot_piece.get(i).volume-volret;
                         }
-                    }
+                    }if(a==1){break;}
                 }
             }
             if(a==1){break;}
-        }
+        } if(a!=1){pierest++;
+            }
 
     }
+
     if(pierest!=0){return -1;}
+
+
     for(int i=0;i<chef_equipe.size();i++){
         if(chef_equipe.get(i) instanceof Chefbrico && chef_equipe.get(i).actif==false){
             Chefbrico c= (Chefbrico)chef_equipe.get(i);
@@ -345,13 +378,75 @@ public void rendreactif(){
             for(int j=0;j<4;j++){
                 if(chef_equipe.get(i).liste_ouv[j]!=null){
                     if(chef_equipe.get(i).liste_ouv[j].pas_restantmeuble>0){
-                        chef_equipe.get(i).liste_ouv[j].pas_restantmeuble--;
+                        chef_equipe.get(i).liste_ouv[j].pas_restantmeuble--;}
                         if(chef_equipe.get(i).liste_ouv[j].pas_restantmeuble==0){
                             chef_equipe.get(i).liste_ouv[j].actif=false;
+                        }
+
+                }
+            }
+        }
+}
+
+public int compteinactif(){
+        int nbinact=0;
+        for(int i=0;i<chef_equipe.size();i++){
+            if(chef_equipe.get(i).actif==false){
+                nbinact++;
+            }
+            for(int j=0;j<4;j++){
+                if(chef_equipe.get(i).liste_ouv[j]!=null){
+                    if(chef_equipe.get(i).liste_ouv[j].actif==false){
+                        nbinact++;
+                    }
+                }
+            }
+        }
+        return nbinact;
+}
+
+    public int compteactif(){
+        int nbact=0;
+        for(int i=0;i<chef_equipe.size();i++){
+            if(chef_equipe.get(i).actif==true){
+                nbact++;
+            }
+            for(int j=0;j<4;j++){
+                if(chef_equipe.get(i).liste_ouv[j]!=null){
+                    if(chef_equipe.get(i).liste_ouv[j].actif==true){
+                        nbact++;
+                    }
+                }
+            }
+        }
+        return nbact;
+    }
+    //n la premiere place toute les condition verifié avant
+
+    //on resserre les lignes
+    public void optirangementstrat1(){
+        int remp=0;
+        int remp2=0;
+        for(int i=0;i<m;i++){
+            remp=0;
+            remp2=0;
+            for(int j=0;j<n;j++){
+                if(ligne[i].place[j]!=null){
+                    remp++;
+                }
+            }
+            if(remp!=n){
+                while(ligne[i].place[remp2]!=null){
+                    remp2++;
+                }
+                if(remp2!=remp){
+                    for(int k=remp2;k<n;k++){
+                        if(ligne[i].place[k]!=null){
+                            this.deplacerlot(i,i,ligne[i].place[k].id);
                         }
                     }
                 }
             }
         }
-}
+    }
 }

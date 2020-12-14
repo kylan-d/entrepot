@@ -17,8 +17,9 @@ public class Chefstock extends Chef{
     }
 
     //j'ai fait deplacerlot d'une rangee donner a une autre rangee donner qu'on devra surement chercher dans une autre fonction de sorte a ce qu'elle convienne
-    public void deplacerlot(Entrepot e1,int idlot,int rangee1, int rangee2){
+    public int deplacerlot(Entrepot e1,int rangee1, int rangee2,int idlot){
         int vol=0;
+        int res=-1;
         LotPiece lotdep=null;
         for(int i=0;i<e1.n;i++){
             if(e1.ligne[rangee1].place[i]!=null){
@@ -42,9 +43,9 @@ public class Chefstock extends Chef{
                     e1.ligne[rangee2].place[j-k]=lotdep;
                 }
                 actif=true;
-                return;
+                res=1;
             }
-        }
+        }return res;
     }
 
     public int ajouterlot(LotPiece lot,Entrepot e1){

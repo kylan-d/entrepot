@@ -12,6 +12,7 @@ public class Meuble{
         this.nom=nom;
         this.piece=piece;
         this.duree=duree;
+        this.prix=0;
         liste_lot_piece=new ArrayList<paires>();
         //liste_lot_piece.addAll(liste); //a tester si addAll ca marche bien
 

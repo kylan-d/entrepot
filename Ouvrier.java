@@ -2,10 +2,11 @@ package projet;
 
 public class Ouvrier extends Personne{
     String specialite;
-    int pas_restantmeuble=0;
+    int pas_restantmeuble;
     public Ouvrier(String nom,String prenom,String specialite){
         super(nom, prenom, false);
         this.specialite=specialite;
+        this.pas_restantmeuble=0;
     }
     //je pense qu'il  faudrait set l'ouvrier en actif quand il recoit un truc a faire mais j'ai des sur ou le faire et comment le eemettre en inactif
 
@@ -21,8 +22,9 @@ public class Ouvrier extends Personne{
     }
 
     //j'ai fait deplacerlot d'une rangee donner a une autre rangee donner qu'on devra surement chercher dans une autre fonction de sorte a ce qu'elle convienne
-    public void deplacerlot(Entrepot e1,int idlot,int rangee1, int rangee2){
+    public int deplacerlot(Entrepot e1,int rangee1, int rangee2,int idlot){
         int vol=0;
+        int res=-1;
         LotPiece lotdep=null;
         for(int i=0;i<e1.n;i++){
             if(e1.ligne[rangee1].place[i]!=null){
@@ -46,9 +48,9 @@ public class Ouvrier extends Personne{
                     e1.ligne[rangee2].place[j-k]=lotdep;
                 }
                 actif=true;
-                return;
+                res=1;
             }
-        }
+        }return res;
     }
 
     public int ajouterlot(LotPiece lot,Entrepot e1){
@@ -76,7 +78,7 @@ public class Ouvrier extends Personne{
         return -1;
     }
     public void monterMeuble(Meuble m){
-        boolean actif=true;
+        this.actif=true;
         pas_restantmeuble=m.duree;
     }
 
