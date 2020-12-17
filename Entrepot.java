@@ -276,13 +276,13 @@ public int ajoutlot(LotPiece lot){
         for(int i=0;i<chef_equipe.size();i++){
             if(chef_equipe.get(i) instanceof Chefstock && chef_equipe.get(i).actif==false){
                 Chefstock a= (Chefstock)chef_equipe.get(i);
-                res=a.deplacerlot(this,m1,m2,idlot);
+                res=a.deplacerlot(this,idlot,m1,m2);
                 break;
             }
             for(int j=0;j<4;j++){
                 if(chef_equipe.get(i).liste_ouv[j]!=null){
                     if(chef_equipe.get(i).liste_ouv[j].actif==false){
-                        res =chef_equipe.get(i).liste_ouv[j].deplacerlot(this,m1,m2,idlot);
+                        res =chef_equipe.get(i).liste_ouv[j].deplacerlot(this,idlot,m1,m2);
                         test=1;
                         break;
 
@@ -365,11 +365,11 @@ public void rendreactif(){
         for(int i=0;i<chef_equipe.size();i++){
             if(chef_equipe.get(i) instanceof Chefbrico){
                 if(((Chefbrico) chef_equipe.get(i)).pas_restantmeuble>0){
-                    ((Chefbrico) chef_equipe.get(i)).pas_restantmeuble--;
+                    ((Chefbrico) chef_equipe.get(i)).pas_restantmeuble--;}
                     if(((Chefbrico) chef_equipe.get(i)).pas_restantmeuble==0){
                         chef_equipe.get(i).actif=false;
                     }
-                }
+
 
            }
             else{
@@ -449,4 +449,23 @@ public int compteinactif(){
             }
         }
     }
+
+    //pas tester
+public void stratrangement2(){
+    int remp=0;
+    int remp2=0;
+    int memidlot=-1;
+    for(int i=m-1;i>=0;i--){
+        for(int j=0;j<n;j++){
+            if(ligne[i].place[j]!=null){
+                int k=0;
+                while(deplacerlot(i,k,ligne[i].place[j].id)==-1){
+                    k++;
+                    if(k==i){break;}
+                }
+            }
+
+        }
+    }
+}
 }

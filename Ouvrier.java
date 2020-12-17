@@ -22,7 +22,7 @@ public class Ouvrier extends Personne{
     }
 
     //j'ai fait deplacerlot d'une rangee donner a une autre rangee donner qu'on devra surement chercher dans une autre fonction de sorte a ce qu'elle convienne
-    public int deplacerlot(Entrepot e1,int rangee1, int rangee2,int idlot){
+    public int deplacerlot(Entrepot e1,int idlot,int rangee1, int rangee2){
         int vol=0;
         int res=-1;
         LotPiece lotdep=null;

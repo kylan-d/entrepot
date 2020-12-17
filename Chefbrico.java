@@ -1,7 +1,7 @@
 package projet;
 
 public class Chefbrico extends Chef{
-    int pas_restantmeuble=0;
+    int pas_restantmeuble;
     public Chefbrico(String nom,String prenom){
         super(nom,prenom,0,false);
         this.pas_restantmeuble=0;
