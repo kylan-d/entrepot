@@ -1,22 +1,25 @@
 package projet;
 
-public class Ouvrier extends Personne{
+public class Ouvrier extends Personne {
     String specialite;
-    int pas_restantmeuble;
-    public Ouvrier(String nom,String prenom,String specialite){
+    int pas_restantmeuble=0;
+
+    public Ouvrier(String nom, String prenom, String specialite) {
         super(nom, prenom, false);
-        this.specialite=specialite;
-        this.pas_restantmeuble=0;
+        this.specialite = specialite;
     }
+
+
+
     //je pense qu'il  faudrait set l'ouvrier en actif quand il recoit un truc a faire mais j'ai des sur ou le faire et comment le eemettre en inactif
 
-//attention a ce que ce soit la premiere place de lot et qui vol soit inferieur au volume totale du lot
+    //attention a ce que ce soit la premiere place de lot et qui vol soit inferieur au volume totale du lot
     public void retirerlot(Entrepot e1,int rangee,int place,int vol){
         for(int j=0;j<vol;j++) {
             e1.ligne[rangee].place[place+j].volume--;
             e1.ligne[rangee].place[place+j]=null;
         }
-       // e1.ligne[rangee].place[place].liste.remove(0);
+        // e1.ligne[rangee].place[place].liste.remove(0);
         actif=true;
         //on prendra d'abord le lot le plus a droite
     }
@@ -28,12 +31,11 @@ public class Ouvrier extends Personne{
         LotPiece lotdep=null;
         for(int i=0;i<e1.n;i++){
             if(e1.ligne[rangee1].place[i]!=null){
-            if(e1.ligne[rangee1].place[i].id==idlot){
-                vol=e1.ligne[rangee1].place[i].volume;
-                lotdep=e1.ligne[rangee1].place[i];
-                e1.ligne[rangee1].place[i]=null;
-
-            }}
+                if(e1.ligne[rangee1].place[i].id==idlot){
+                    vol=e1.ligne[rangee1].place[i].volume;
+                    lotdep=e1.ligne[rangee1].place[i];
+                    e1.ligne[rangee1].place[i]=null;}
+            }
         }
         int a=0;
         for(int j=0;j<e1.n;j++){
@@ -49,12 +51,16 @@ public class Ouvrier extends Personne{
                 }
                 actif=true;
                 res=1;
+                break;
             }
-        }return res;
+        }
+        return res;
     }
 
     public int ajouterlot(LotPiece lot,Entrepot e1){
         int a;
+        int res = -1;
+        recherche:
         for(int i=0;i<e1.m;i++){
             if(e1.ligne[i].taille_restante>=lot.volume){
                 a=0;
@@ -70,16 +76,19 @@ public class Ouvrier extends Personne{
                             e1.ligne[i].place[j-k]=lot;
                         }
                         actif=true;
-                        return 1;
+                        res = 1;
+                        break recherche;
                     }
                 }
             }
         }
-        return -1;
+        return res;
     }
+
     public void monterMeuble(Meuble m){
-        this.actif=true;
+        actif = true;
         pas_restantmeuble=m.duree;
     }
+
 
 }

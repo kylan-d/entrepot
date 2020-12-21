@@ -1,26 +1,39 @@
 package projet;
-
 import java.util.ArrayList;
-public class Meuble{
-    ArrayList<paires> liste_lot_piece;
+
+public class Meuble {
+    ArrayList<Paire> liste_lot_piece;
     String piece;
     int duree;
     double prix;
     String nom;
-    
+
     public Meuble( String nom,String piece, int duree){
         this.nom=nom;
         this.piece=piece;
         this.duree=duree;
-        //this.prix=0;
-        liste_lot_piece=new ArrayList<paires>();
-        //liste_lot_piece.addAll(liste); //a tester si addAll ca marche bien
+        liste_lot_piece=new ArrayList<Paire>();
 
     }
 
-    public void addcompo(paires p){
+    public void addcompo(Paire p){
         liste_lot_piece.add(p);
     }
-public double calculprix(){return 0;}
+
+    public double calculerPrix(Rangee[] ligne) {
+        double resultat = 0;
+        for(int i = 0; i<ligne.length; i++) {
+            for(int j = 0; i<ligne[i].place.length;j++) {
+                if(ligne[i].place[i].piece.nom.equals(liste_lot_piece.get(i).type)) {
+                    resultat += (ligne[i].place[i].piece.prix * liste_lot_piece.get(i).volume);
+                }
+            }
+        }
+        prix = resultat;
+        System.out.println(resultat);
+        return resultat;
+
+    }
+
 }
-//pour la construction de la liste meuble et le tableau de rangee , on mettre le nombre de fois la piece x par rapport a son volume ,cad si le volume de vis necessairre/a ranger est 3,on mettra vis 3 fois dans la liste/tableau
+

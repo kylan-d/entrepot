@@ -1,17 +1,17 @@
 package projet;
 
-public abstract class Personne{
+public abstract class Personne {
     String nom;
     String prenom;
     boolean actif;
-    static int i = 1;
+    static int i = 0;
     int id;
 
     public Personne(String nom, String prenom, Boolean actif){
         this.nom = nom;
-        this.prenom = prenom; 
+        this.prenom = prenom;
         this.actif = actif;
-        this. id = i; 
+        this. id = i;
         i++;
     }
 
@@ -28,11 +28,11 @@ public abstract class Personne{
     }
 
     public Boolean get_actif(){
-        return this.actif; 
+        return this.actif;
     }
 
     public void set_actif(Boolean actif){
-        this.actif = actif; 
+        this.actif = actif;
     }
 
 }

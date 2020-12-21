@@ -1,77 +1,92 @@
 package projet;
 
 public class Chefstock extends Chef{
-    public Chefstock(String nom,String prenom){
-        super(nom, prenom, 0, false);
+
+    public Chefstock(String nom, String prenom) {
+        super(nom,prenom,0,false);
     }
 
-    //attention a ce que ce soit la premiere place de lot et qui vol soit inferieur au volume totale du lot
-    public void retirerlot(Entrepot e1,int rangee,int place,int vol){
-        for(int j=0;j<vol;j++) {
-            e1.ligne[rangee].place[place+j].volume--;
-            e1.ligne[rangee].place[place+j]=null;
+    public void retirerlot(Entrepot e1, int rangee, int place, int vol) {
+        for(int i = 0; i<vol; i++) {
+            e1.ligne[rangee].place[place+i].volume--;
+            e1.ligne[rangee].place[place+i]=null;
         }
-        // e1.ligne[rangee].place[place].liste.remove(0);
-        actif=true;
-        //on prendra d'abord le lot le plus a droite
+        actif = true;
     }
 
-    //j'ai fait deplacerlot d'une rangee donner a une autre rangee donner qu'on devra surement chercher dans une autre fonction de sorte a ce qu'elle convienne
-    public int deplacerlot(Entrepot e1,int idlot,int rangee1, int rangee2){
+
+    public int deplacerlot(Entrepot e1, int idlot, int rangee1, int rangee2) {
         int vol=0;
         int res=-1;
-        LotPiece lotdep=null;
-        for(int i=0;i<e1.n;i++){
-            if(e1.ligne[rangee1].place[i]!=null){
-                if(e1.ligne[rangee1].place[i].id==idlot){
+        LotPiece lotdep = null;
+        for(int i =0; i<e1.n; i++) {
+            if(e1.ligne[rangee1].place[i]!=null) {
+                if(e1.ligne[rangee1].place[i].id==idlot) {
                     vol=e1.ligne[rangee1].place[i].volume;
                     lotdep=e1.ligne[rangee1].place[i];
                     e1.ligne[rangee1].place[i]=null;
-
-                }}
+                }
+            }
         }
         int a=0;
-        for(int j=0;j<e1.n;j++){
-            if(e1.ligne[rangee2].place[j]==null){
+        for(int j = 0; j<e1.n ; j++) {
+            if(e1.ligne[rangee2].place[j]== null) {
                 a++;
             }
-            else{
+            else {
                 a=0;
             }
-            if(a==vol){
-                for(int k=0;k<a;k++){
+            if(a==vol) {
+                for(int k =0; k<a; k++) {
                     e1.ligne[rangee2].place[j-k]=lotdep;
                 }
                 actif=true;
                 res=1;
                 break;
             }
-        }return res;
+        }
+        return res;
     }
 
-    public int ajouterlot(LotPiece lot,Entrepot e1){
+    public int ajouterlot(LotPiece lot, Entrepot e1) {
         int a;
-        for(int i=0;i<e1.m;i++){
-            if(e1.ligne[i].taille_restante>=lot.volume){
+        int res = -1;
+        recherche:
+        for(int i=0; i<e1.m; i++) {
+            if(e1.ligne[i].taille_restante>=lot.volume) {
                 a=0;
-                for(int j=0;j<e1.n;j++){
-                    if(e1.ligne[i].place[j]==null){
+                for(int j=0; j<e1.n;j++) {
+                    if(e1.ligne[i].place[j]==null) {
                         a++;
-
                     }
-                    else{
+                    else {
                         a=0;
                     }
-                    if(a==lot.volume){
-                        for(int k=0;k<a;k++){
+                    if(a==lot.volume) {
+                        for(int k=0;k<a;k++) {
                             e1.ligne[i].place[j-k]=lot;
                         }
-                        actif=true;
-                        return 1;
+                        actif = true;
+                        res =  1;
+                        break recherche;
                     }
                 }
             }
         }
-        return -1;
+        return res;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
