@@ -156,6 +156,23 @@ public class Menu {
                 System.out.println("sous quel nombre d'ouvrier inactif recruterez vous");
                 inactmin=sc.nextInt();
             }
+            System.out.println("quel strategie voulez vous pour l'enlevement de lot ? 0,1 ou 2");
+            int stratlot=sc.nextInt();
+            while(stratlot!=0 &&stratlot!=1 && stratlot!=2){
+                System.out.println("cette strategie n'existe pas");
+                System.out.println("quel strategie voulez vous ? 0,1 ou 2");
+                strat=sc.nextInt();
+            }
+            int nbconservationlot=0;
+            if(stratlot==1){
+                System.out.println("a partir de combien de reception de lot, voulez vous supprimez un lot");
+                nbconservationlot=sc.nextInt();
+            }
+            int pourcent=0;
+            if(stratlot==2){
+                System.out.println("a partir de quel pourcentage de l'entrepot pris par une seule piece, voulez vous supprimer  un lot de ce type de piece");
+                pourcent=sc.nextInt();
+            }
             Scanner sc3 = new Scanner(System.in);
             int pas_de_temps=0;
             simu:
@@ -232,6 +249,12 @@ public class Menu {
                 if(strat==2){
                     entrepot.strat2();
                 }
+                if(stratlot==1){
+                    entrepot.stratretirerlot1(pas_de_temps,nbconservationlot);
+                }
+                if(stratlot==2){
+                    entrepot.stratretirerlot2(pourcent);
+                }
                 entrepot.rendreactif();
 
                 System.out.println(entrepot.tresorerie);
@@ -261,6 +284,23 @@ public class Menu {
             inactmax=sc.nextInt();
             System.out.println("sous quel nombre d'ouvrier inactif recruterez vous");
             inactmin=sc.nextInt();
+        }
+        System.out.println("quel strategie voulez vous pour l'enlevement de lot ? 0,1 ou 2");
+        int stratlot=sc.nextInt();
+        while(stratlot!=0 &&stratlot!=1 && stratlot!=2){
+            System.out.println("cette strategie n'existe pas");
+            System.out.println("quel strategie voulez vous ? 0,1 ou 2");
+            strat=sc.nextInt();
+        }
+        int nbconservationlot=0;
+        if(stratlot==1){
+            System.out.println("a partir de combien de reception de lot, voulez vous supprimez un lot");
+            nbconservationlot=sc.nextInt();
+        }
+        int pourcent=0;
+        if(stratlot==2){
+            System.out.println("a partir de quel pourcentage de l'entrepot pris par une seule piece, voulez vous supprimer  un lot de ce type de piece");
+            pourcent=sc.nextInt();
         }
         Scanner sc3 = new Scanner(System.in);
         int proba;
@@ -314,6 +354,7 @@ public class Menu {
             while (imeu < entrepot.meublepasfini.size()) {
 
                 int testm = entrepot.montermeuble(entrepot.meublepasfini.get(imeu));
+                System.out.println("test"+testm);
                 if (testm == 1) {
                     entrepot.meublepasfini.remove(imeu);
 
@@ -328,6 +369,12 @@ public class Menu {
             }
             if(strat==2){
                 entrepot.strat2();
+            }
+            if(stratlot==1){
+                entrepot.stratretirerlot1(nbpas,nbconservationlot);
+            }
+            if(stratlot==2){
+                entrepot.stratretirerlot2(pourcent);
             }
             entrepot.rendreactif();
             entrepot.faireInventaire();
@@ -358,6 +405,7 @@ public class Menu {
         boolean quitter = false;
         String nom_meuble;
         String piece_meuble;
+        String duree;
         String nombre_piece;
         if(entrepot!=null) {
             do {
@@ -366,18 +414,29 @@ public class Menu {
                 System.out.println("Veuillez entrer la pièce correspondante : ");
                 piece_meuble = sc.nextLine();
                 System.out.println("Veuillez entrer le nombre de pièce nécessaire pour le montage : ");
-                nombre_piece = sc.nextLine();
+                nombre_piece=sc.nextLine();
+                System.out.println("duree nécessaire pour le montage : ");
+                duree= sc.nextLine();
                 quitter = true;
                 try {
-                    if(nom_meuble == null || piece_meuble == null || nombre_piece == null ) {
+                    if(nom_meuble == null || piece_meuble == null || duree == null ) {
                         System.out.println("Désolé mais il y a un problème avec la saisie des informations.. Veuillez réessayer :");
                         quitter = false;
                     }
                     else {
                         String nom = nom_meuble;
                         String piece = piece_meuble;
-                        int nombrep = Integer.parseInt(nombre_piece);
-                        Meuble meuble = new Meuble(nom,piece,nombrep);
+                        int dur = Integer.parseInt(duree);
+                        Meuble meuble = new Meuble(nom,piece,dur);
+                        int nbdepiece=Integer.parseInt(nombre_piece);
+                        for(int nbpi=0;nbpi<nbdepiece;nbpi++) {
+                            System.out.println("type de la piece n°"+(nbpi+1)+" ?");
+                            String type = sc.next();
+                            System.out.println("volume de la piece n°"+(nbpi+1)+" ?");
+                            int volume = sc.nextInt();
+                            meuble.addcompo(new Paire(volume, type));
+
+                        }
                         int val = entrepot.montermeuble(meuble);
                         if(val == -1) {
                             entrepot.meublepasfini.add(meuble);
@@ -435,6 +494,7 @@ public class Menu {
             System.out.println("quel strategie voulez vous ? 0,1 ou 2");
             strat=sc.nextInt();
         }
+
         int xpasdetemps=0;
         int inactmin=0;
         int inactmax=0;
@@ -445,6 +505,23 @@ public class Menu {
             inactmax=sc.nextInt();
             System.out.println("sous quel nombre d'ouvrier inactif recruterez vous");
             inactmin=sc.nextInt();
+        }
+        System.out.println("quel strategie voulez vous pour l'enlevement de lot ? 0,1 ou 2");
+        int stratlot=sc.nextInt();
+        while(stratlot!=0 &&stratlot!=1 && stratlot!=2){
+            System.out.println("cette strategie n'existe pas");
+            System.out.println("quel strategie voulez vous ? 0,1 ou 2");
+            strat=sc.nextInt();
+        }
+        int nbconservationlot=0;
+        if(stratlot==1){
+            System.out.println("a partir de combien de reception de lot, voulez vous supprimez un lot");
+            nbconservationlot=sc.nextInt();
+        }
+        int pourcent=0;
+        if(stratlot==2){
+            System.out.println("a partir de quel pourcentage de l'entrepot pris par une seule piece, voulez vous supprimer  un lot de ce type de piece");
+            pourcent=sc.nextInt();
         }
         String chemin = "C:\\" + nomFichier;
         String line;
@@ -480,9 +557,11 @@ public class Menu {
                 int duree = Integer.parseInt(informations.get(i)[4]);
                 Meuble meuble = new Meuble(nom, piece, duree);
                 System.out.println(" [ Nom : " + meuble.nom + " | Piece : " + meuble.piece + " | Duree : " + meuble.duree + " | Prix : " + meuble.prix + " ] \n");
-                String type = informations.get(i)[5];
-                int volume = Integer.parseInt(informations.get(i)[6]);
-                meuble.addcompo(new Paire(volume, type));
+                for(int addp=5;addp<informations.get(i).length;addp=addp+2) {
+                    String type = informations.get(i)[addp];
+                    int volume = Integer.parseInt(informations.get(i)[addp+1]);
+                    meuble.addcompo(new Paire(volume, type));
+                }
                 int test_meuble = entrepot.montermeuble(meuble);
                 if (test_meuble == 1) {
                     System.out.println("Meuble construit !");
@@ -504,7 +583,14 @@ public class Menu {
             if(strat==2){
                 entrepot.strat2();
             }
+            if(stratlot==1){
+                entrepot.stratretirerlot1(i,nbconservationlot);
+            }
+            if(stratlot==2){
+                entrepot.stratretirerlot2(pourcent);
+            }
             entrepot.rendreactif();
+            System.out.println(entrepot.meublepasfini.size());
            // action();
         }action();
     }

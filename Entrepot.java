@@ -473,7 +473,50 @@ public class Entrepot {
         }
         return res;
     }
-
+    public int retirerlot(int id){
+        int res = -1;
+        recherche:
+        for(int i=0;i<chef_equipe.size();i++){
+            if(chef_equipe.get(i) instanceof Chefstock && chef_equipe.get(i).actif==false){
+                Chefstock a= (Chefstock)chef_equipe.get(i);
+                a.retirerlot(this,id);
+                res = 1;
+                break;
+            }
+            for(int j=0;j<4;j++){
+                if(chef_equipe.get(i).liste_ouv[j]!=null){
+                    if(chef_equipe.get(i).liste_ouv[j].actif==false){
+                        chef_equipe.get(i).liste_ouv[j].retirerlot(this,id);
+                        res = 1;
+                        break recherche;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+    public int retirerlot(String nom){
+        int res = -1;
+        recherche:
+        for(int i=0;i<chef_equipe.size();i++){
+            if(chef_equipe.get(i) instanceof Chefstock && chef_equipe.get(i).actif==false){
+                Chefstock a= (Chefstock)chef_equipe.get(i);
+                a.retirerlot(this,nom);
+                res = 1;
+                break;
+            }
+            for(int j=0;j<4;j++){
+                if(chef_equipe.get(i).liste_ouv[j]!=null){
+                    if(chef_equipe.get(i).liste_ouv[j].actif==false){
+                        chef_equipe.get(i).liste_ouv[j].retirerlot(this,nom);
+                        res = 1;
+                        break recherche;
+                    }
+                }
+            }
+        }
+        return res;
+    }
     public int deplacerlot(int m1, int m2, int idlot){
         int res=-1;
         int test=0;
@@ -548,12 +591,13 @@ public class Entrepot {
      //   if(pierest!=0){
        //     return -1;
         //}
-        recherche:
+
         for(int i=0;i<m.liste_lot_piece.size();i++){
+
             //System.out.println(a);
             if(a!=1){pierest++;}
             a=0;
-
+            recherche:
             for(int im=0;im<this.m;im++){
                 for(int in=0;in<this.n;in++){
                     if(ligne[im].place[in]!=null){
@@ -588,6 +632,16 @@ public class Entrepot {
         }
         if(pierest!=0){
             res =-1;
+        }
+        int parc=0;
+        while(parc<m.liste_lot_piece.size()){
+            if(m.liste_lot_piece.get(parc).volume==0){
+                m.liste_lot_piece.remove(parc);
+            }
+            else{
+                parc++;
+            }
+
         }
         System.out.println(pierest+" piecerestante");
         if(res==-1){return -1;}
@@ -727,12 +781,18 @@ public class Entrepot {
         int remp2=0;
         int memidlot=-1;
         for(int i=m-1;i>=0;i--){
-            for(int j=0;j<n;j++){
+            for(int j=n-1;j>=0;j--){
                 if(ligne[i].place[j]!=null){
                     int k=0;
-                    while(deplacerlot(i,k,ligne[i].place[j].id)==-1){
+                    int test=-1;
+                    while(test==-1){
+
+                        if(k==i){break;}
+                        test=deplacerlot(i,k,ligne[i].place[j].id);
                         k++;
                         if(k==i){break;}
+
+
                     }
                 }
 
@@ -740,28 +800,41 @@ public class Entrepot {
         }
     }
 public void strat1(int i,int xpasdetemps,int inactmin,int inactmax){
-         if (i % xpasdetemps == 0) {//ici on fais la division euclidienne du pas te temps ou l'on se trouve symbolise par i par xpasdetemps et on garde le reste, donc si xpasdetemps =10 on fera la methode tout les 10 pas de temps
+         if(xpasdetemps!=0){
+             if (i % xpasdetemps == 0) {//ici on fais la division euclidienne du pas te temps ou l'on se trouve symbolise par i par xpasdetemps et on garde le reste, donc si xpasdetemps =10 on fera la methode tout les 10 pas de temps
            optirangementstrat1();
-      }
+      }}
 
           if (compteinactif() <= inactmin) {
-            if (meublepasfini.size() != 0) {
-              int spec = i % meublepasfini.size();
+        //    if (meublepasfini.size() != 0) {
+      //        int spec = i % meublepasfini.size();
     //comme ca on recrute une specialite qui a besoin d'un ouvrier et la division euclidienne pour changer a chaque fois
-    String specrec = meublepasfini.get(spec).piece;
-          String nomrec = "Paul" + i;
-        int testrec = recruterouvrier(nomrec, nomrec, specrec);
-      if (testrec == -1) {
-        recruterchefbrico(nomrec, nomrec);
-               }
-             } else {
+    //String specrec = meublepasfini.get(spec).piece;
+          //String nomrec = "Paul" + i;
+        //int testrec = recruterouvrier(nomrec, nomrec, specrec);
+      //if (testrec == -1) {
+       // recruterchefbrico(nomrec, nomrec);
+            //   }
+          //   }
+            //else {
                    String nomrec = "Paul" + i;
     // la on pourrai utiliser un tableau de specialite pour en tirer une au sort et la donner a l'ouvrier
-      int testrec = recruterouvrier(nomrec, nomrec, "toilette");
+              ArrayList<Integer> nbspe=new ArrayList<Integer>();
+              for(int j=0;j<nomspe.length;j++){
+                  nbspe.add(comptespe(nomspe[j]));
+              }
+              int nbmin=nbspe.get(0);
+              int placemin=0;
+              for(int k=0;k<nomspe.length;k++){
+                  if(nbmin>nbspe.get(k)){
+                      placemin=k;
+                  }
+              }
+      int testrec = recruterouvrier(nomrec, nomrec, nomspe[placemin]);
         if (testrec == -1) {
               recruterchefbrico(nomrec, nomrec);
             }
-          }
+          //}
         } else if (compteinactif() >= inactmax) {
               int testlic = licencierChefstock();
             if (testlic == -1) {
@@ -787,9 +860,83 @@ public void strat1(int i,int xpasdetemps,int inactmin,int inactmax){
               }
         }
            else{
+            System.out.println("ZER");
              stratrangement2();
         }
 
 
     }
+    public int comptespe(String spe){
+        int nb=0;
+        for(int i=0;i<chef_equipe.size();i++){
+            for(int j=0;j<4;j++){
+                if(chef_equipe.get(i).liste_ouv[j]!=null){
+                    if(chef_equipe.get(i).liste_ouv[j].specialite.equals(spe)){
+                        nb++;
+                    }
+                }
+            }
+        }
+        return nb;
+    }
+
+    public void stratretirerlot1(int nbpasdetemps,int nbconservationlot){
+        int idplusancienlot=-1;
+        int idplusrecentlot=-1;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(ligne[i].place[j]!=null){
+                    if(idplusancienlot==-1){
+                        idplusancienlot=ligne[i].place[j].id;
+                    }
+                    if(idplusrecentlot==-1){
+                        idplusrecentlot=ligne[i].place[j].id;
+                    }
+                    if(ligne[i].place[j].id<idplusancienlot){
+                        idplusancienlot=ligne[i].place[j].id;
+                    }
+                    if(ligne[i].place[j].id>idplusrecentlot){
+                        idplusrecentlot=ligne[i].place[j].id;
+                    }
+                }
+            }
+        }
+        if(idplusrecentlot-idplusancienlot>nbconservationlot){
+            retirerlot(idplusancienlot);
+            System.out.println("on supp un lot");
+        }
+
+
+    }
+    public void stratretirerlot2(int pourcent){
+        ArrayList<Paire> piece=new ArrayList<Paire>();
+        int r=0;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++) {
+                if (ligne[i].place[j] != null) {
+                    r=0;
+                    for(int k=0;k<piece.size();k++){
+                        if(ligne[i].place[j].piece.nom.equals(piece.get(k).type)){
+                            piece.get(k).volume++;
+                            r++;
+                            break;
+                        }
+                        if(r==0){piece.add(new Paire(1,ligne[i].place[j].piece.nom));}
+                    }
+                }
+            }
+        }
+        int max=0;
+        int place=0;
+        for(int l=0;l<piece.size();l++){
+            if(piece.get(l).volume>max){
+                place=l;
+            }
+        }
+        if(piece.size()!=0){
+        if((m*n*pourcent)/100<piece.get(place).volume) {
+            retirerlot(piece.get(place).type);
+            System.out.println("on supp un lot");
+        }
+    }}
 }

@@ -14,37 +14,97 @@ public class Chefstock extends Chef{
         actif = true;
     }
 
+    public void retirerlot(Entrepot e1,int idlot){
+        for(int i=0;i<e1.m;i++){
+            for(int j=0;j<e1.n;j++){
+                if(e1.ligne[i].place[j]!=null) {
+                    if (e1.ligne[i].place[j].id == idlot) {
+                        e1.ligne[i].place[j].volume--;
+                        e1.ligne[i].place[j]=null;
+                    }
+                }
+            }
+        }
+    }
 
+    public void retirerlot(Entrepot e1,String nom){
+        int memid=-1;
+        for(int i=0;i<e1.m;i++){
+            for(int j=0;j<e1.n;j++){
+                if(e1.ligne[i].place[j]!=null) {
+                    if (e1.ligne[i].place[j].piece.nom.equals(nom)) {
+                        if(memid==-1) {
+                            memid=e1.ligne[i].place[j].id;
+                            e1.ligne[i].place[j].volume--;
+                            e1.ligne[i].place[j] = null;
+                        }
+                        else if(memid==e1.ligne[i].place[j].id){
+                            e1.ligne[i].place[j].volume--;
+                            e1.ligne[i].place[j] = null;
+                        }
+                    }
+                }
+            }
+        }
+    }
     public int deplacerlot(Entrepot e1, int idlot, int rangee1, int rangee2) {
-        int vol=0;
+        int vol=-1;
+        int verifpossible=0;
+
         int res=-1;
         LotPiece lotdep = null;
-        for(int i =0; i<e1.n; i++) {
-            if(e1.ligne[rangee1].place[i]!=null) {
-                if(e1.ligne[rangee1].place[i].id==idlot) {
-                    vol=e1.ligne[rangee1].place[i].volume;
-                    lotdep=e1.ligne[rangee1].place[i];
-                    e1.ligne[rangee1].place[i]=null;
+
+        for(int i2 =0; i2<e1.n; i2++) {
+            if(e1.ligne[rangee1].place[i2]!=null) {
+                if(e1.ligne[rangee1].place[i2].id==idlot) {
+                    vol=e1.ligne[rangee1].place[i2].volume;
+                    lotdep=e1.ligne[rangee1].place[i2];
+                    //e1.ligne[rangee1].place[i]=null;
                 }
             }
         }
-        int a=0;
-        for(int j = 0; j<e1.n ; j++) {
-            if(e1.ligne[rangee2].place[j]== null) {
-                a++;
+
+        int a2=0;
+        for(int j2 = 0; j2<e1.n ; j2++) {
+            if(e1.ligne[rangee2].place[j2]== null) {
+                a2++;
             }
             else {
-                a=0;
+                a2=0;
             }
-            if(a==vol) {
-                for(int k =0; k<a; k++) {
-                    e1.ligne[rangee2].place[j-k]=lotdep;
-                }
-                actif=true;
-                res=1;
-                break;
+            if(a2==vol) {
+                verifpossible=1;
             }
         }
+        if(verifpossible==1){
+            for(int i=0;i<e1.n;i++){
+                if(e1.ligne[rangee1].place[i]!=null){
+                    if(e1.ligne[rangee1].place[i].id==idlot){
+                        vol=e1.ligne[rangee1].place[i].volume;
+                        lotdep=e1.ligne[rangee1].place[i];
+                        e1.ligne[rangee1].place[i]=null;}
+                }
+            }
+
+            int a=0;
+            for(int j=0;j<e1.n;j++){
+                if(e1.ligne[rangee2].place[j]==null){
+                    a++;
+                }
+                else{
+                    a=0;
+                }
+                if(a==vol){
+                    for(int k=0;k<a;k++){
+                        e1.ligne[rangee2].place[j-k]=lotdep;
+                    }
+                    actif=true;
+                    res=1;
+                    break;
+                }
+            }
+        }
+
         return res;
     }
 
