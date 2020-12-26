@@ -34,6 +34,17 @@ public class Meuble {
         return resultat;
 
     }
+    public double calculerPrix(LotPiece lp) {
+        double resultat = 0;
+        for(int k = 0; k<liste_lot_piece.size(); k++) {
+            if(lp.piece.nom.equals(liste_lot_piece.get(k).type)) {
+                resultat += (lp.prix * liste_lot_piece.get(k).volume);
+            }
+        }
+
+        prix = resultat;
+        return resultat;
+    }
 
 }
 

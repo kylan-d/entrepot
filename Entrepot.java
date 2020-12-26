@@ -733,6 +733,38 @@ public class Entrepot {
         }
         return nbinact;
     }
+    public int compteinactifbr(){
+        int nbinact=0;
+        for(int i=0;i<chef_equipe.size();i++){
+            if(chef_equipe.get(i).actif==false && chef_equipe.get(i) instanceof Chefbrico){
+                nbinact++;
+            }
+            for(int j=0;j<4;j++){
+                if(chef_equipe.get(i).liste_ouv[j]!=null){
+                    if(chef_equipe.get(i).liste_ouv[j].actif==false){
+                        nbinact++;
+                    }
+                }
+            }
+        }
+        return nbinact;
+    }
+    public int compteinactifst(){
+        int nbinact=0;
+        for(int i=0;i<chef_equipe.size();i++){
+            if(chef_equipe.get(i).actif==false && chef_equipe.get(i) instanceof Chefstock){
+                nbinact++;
+            }
+            for(int j=0;j<4;j++){
+                if(chef_equipe.get(i).liste_ouv[j]!=null){
+                    if(chef_equipe.get(i).liste_ouv[j].actif==false){
+                        nbinact++;
+                    }
+                }
+            }
+        }
+        return nbinact;
+    }
 
     public int compteactif(){
         int nbact=0;
@@ -856,11 +888,21 @@ public void strat1(int i,int xpasdetemps,int inactmin,int inactmax){
                 }
               else{
                 recruterchefstock("John","Doe");
-          }
+          }}
               }
-        }
+               else if(compteinactifst()==0){
+            int recru=recruterouvrier("John","Doe",nomspe[(int)Math.random()*nomspe.length]);
+            if(recru==-1){
+                    recruterchefstock("John","Doe");
+
+            }
+        }       else if(compteinactifbr()==0){
+                    recruterchefbrico("John","Doe");
+
+            }
+
            else{
-            System.out.println("ZER");
+
              stratrangement2();
         }
 
@@ -939,4 +981,59 @@ public void strat1(int i,int xpasdetemps,int inactmin,int inactmax){
             System.out.println("on supp un lot");
         }
     }}
+
+    public int  montermeuble2(Meuble m){
+        int res = -1;
+        recherche:
+        for(int lg=0;lg<this.m;lg++){
+            if(ligne[lg] !=null){ // On parcours les rangée
+                for(int pl=0;pl<this.n;pl++){  // On parcours les lots dans la rangée
+                    if(ligne[lg].place[pl] != null){ // Si dans la rangée, il y a des lots
+                        for(int i=0;i<m.liste_lot_piece.size();i++){ // On parcours la liste des pièces nécéssaire au montage du meuble que l'on a passer en paramettre
+                            if(ligne[lg].place[pl].piece.nom.equals(m.liste_lot_piece.get(i).type)){ // Si on a la pièce dispo en entrepot
+                                if(ligne[lg].place[pl].volume>=m.liste_lot_piece.get(i).volume){ // On check si il y a une qté suffisante
+
+                                    for(int j = 0; j<chef_equipe.size(); j++) {
+                                        System.out.println(chef_equipe.get(j).prenom);
+                                        if(chef_equipe.get(j) instanceof Chefbrico && chef_equipe.get(j).actif == false) {
+                                            double prix = m.calculerPrix(ligne[lg].place[pl]);
+                                            int b = retirerlot(lg,pl,m.liste_lot_piece.get(i).volume);
+                                            Chefbrico c = (Chefbrico)chef_equipe.get(j);
+                                            c.monterMeuble(m);
+                                            tresorerie+=prix;
+                                            System.out.println("Lot retiré : "+b);
+                                            System.out.println("Meuble montée ! ");
+                                            res = 1;
+                                            break recherche;
+                                        }
+                                        else {
+                                            for(int k=0;k<chef_equipe.get(j).liste_ouv.length; k++) {
+                                                if(chef_equipe.get(j).liste_ouv[k]!= null && chef_equipe.get(j).liste_ouv[k].actif == false && chef_equipe.get(j).liste_ouv[k].specialite.equals(m.piece)) {
+                                                    double prix = m.calculerPrix(ligne[lg].place[pl]);
+                                                    int b = retirerlot(lg,pl,m.liste_lot_piece.get(i).volume);
+                                                    Ouvrier o = (Ouvrier)chef_equipe.get(j).liste_ouv[k];
+                                                    o.monterMeuble(m);
+                                                    tresorerie+=prix;
+                                                    System.out.println("Meuble montée ! ");
+                                                    res = 1;
+                                                    break recherche;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else {
+                                    System.out.println("Désolé, il n'y pas la quantité de pièce suffisante pour monter le meuble. ");
+                                }
+                            }
+                            else {
+                                System.out.println("Désolé, il n'y a pas de pièce dispo pour le montage du meuble");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return res;
+    }
 }

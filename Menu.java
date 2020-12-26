@@ -177,7 +177,7 @@ public class Menu {
             int pas_de_temps=0;
             simu:
             while (true) {
-                System.out.println("que voulez vous faire ensuite?\npour recevoir une commande de meuble: tapez meuble\npour recevoir un lot: tapez lot\npour ne rien faire: tapez rien\npour quitter: tapez quitter");
+                System.out.println("que voulez vous faire ensuite?\npour recevoir une commande de meuble: tapez meuble\npour recevoir un lot: tapez lot\npour ne rien faire: tapez rien\npour quitter: tapez quitter\n pour afficher les infos de l'entrepot: taper afficher ");
                 String testst = sc3.next();
                 switch (testst) {
                     case "meuble":
@@ -226,6 +226,8 @@ public class Menu {
                         break;
                     case "quitter":
                         break simu;
+                    case "afficher":
+                        afficherInfos();
                     default:
                         System.out.println("cette option n'existe pas");
                         break;
