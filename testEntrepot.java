@@ -255,6 +255,6 @@ public class testEntrepot {
                     volrest++;
                 }
             }
-        assertEquals(100,100);
+        assertEquals(100,volrest);
     }
 }
