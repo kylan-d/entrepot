@@ -54,7 +54,7 @@ public class testEntrepot {
         }
     }
    }
-  assertEquals(res,ajout);
+  assertEquals(ajout,res);
  }
  @ParameterizedTest()
  @CsvSource({ "ee,1", "ef,50", "eg,100","eh,0","ei,0" })
@@ -89,7 +89,7 @@ public class testEntrepot {
     }
    }
   }
-  assertEquals(volt,vol);
+  assertEquals(vol,volt);
  }
     @ParameterizedTest()
     @CsvSource({ "ee,true", "ef,true", "eg,true","ew,true","e,true" })
@@ -126,7 +126,7 @@ public class testEntrepot {
             }
         }
 
-        assertEquals(res,retir);
+        assertEquals(retir,res);
     }
 
     @ParameterizedTest()
@@ -153,7 +153,7 @@ public class testEntrepot {
         int res=EntrepotUnderTest.compteactif();
 
 
-        assertEquals(res,actif);
+        assertEquals(actif,res);
     }
 
     @Test
