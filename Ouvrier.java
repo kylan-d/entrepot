@@ -18,9 +18,10 @@ public class Ouvrier extends Personne {
         for(int j=0;j<vol;j++) {
             e1.ligne[rangee].place[place+j].volume--;
             e1.ligne[rangee].place[place+j]=null;
+            actif=true;
         }
         // e1.ligne[rangee].place[place].liste.remove(0);
-        actif=true;
+
         //on prendra d'abord le lot le plus a droite
     }
     public void retirerlot(Entrepot e1,int idlot){
@@ -28,12 +29,14 @@ public class Ouvrier extends Personne {
             for(int j=0;j<e1.n;j++){
                 if(e1.ligne[i].place[j]!=null) {
                     if (e1.ligne[i].place[j].id == idlot) {
+                        actif=true;
                         e1.ligne[i].place[j].volume--;
                         e1.ligne[i].place[j]=null;
                     }
                 }
             }
         }
+
     }
     public void retirerlot(Entrepot e1,String nom){
         int memid=-1;
@@ -41,6 +44,7 @@ public class Ouvrier extends Personne {
             for(int j=0;j<e1.n;j++){
                 if(e1.ligne[i].place[j]!=null) {
                     if (e1.ligne[i].place[j].piece.nom.equals(nom)) {
+                        actif=true;
                         if(memid==-1) {
                             memid=e1.ligne[i].place[j].id;
                             e1.ligne[i].place[j].volume--;
@@ -54,6 +58,7 @@ public class Ouvrier extends Personne {
                 }
             }
         }
+
     }
     //j'ai fait deplacerlot d'une rangee donner a une autre rangee donner qu'on devra surement chercher dans une autre fonction de sorte a ce qu'elle convienne
     public int deplacerlot(Entrepot e1, int idlot, int rangee1, int rangee2) {
@@ -75,7 +80,7 @@ public class Ouvrier extends Personne {
 
         int a2=0;
         for(int j2 = 0; j2<e1.n ; j2++) {
-            if(e1.ligne[rangee2].place[j2]== null) {
+            if(e1.ligne[rangee2].place[j2]== null  || (a2!=0 &&e1.ligne[rangee2].place[j2].id==idlot)) {
                 a2++;
             }
             else {

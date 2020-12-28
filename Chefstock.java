@@ -10,14 +10,16 @@ public class Chefstock extends Chef{
         for(int i = 0; i<vol; i++) {
             e1.ligne[rangee].place[place+i].volume--;
             e1.ligne[rangee].place[place+i]=null;
+            actif=true;
         }
-        actif = true;
+
     }
 
     public void retirerlot(Entrepot e1,int idlot){
         for(int i=0;i<e1.m;i++){
             for(int j=0;j<e1.n;j++){
                 if(e1.ligne[i].place[j]!=null) {
+                    actif=true;
                     if (e1.ligne[i].place[j].id == idlot) {
                         e1.ligne[i].place[j].volume--;
                         e1.ligne[i].place[j]=null;
@@ -25,6 +27,7 @@ public class Chefstock extends Chef{
                 }
             }
         }
+
     }
 
     public void retirerlot(Entrepot e1,String nom){
@@ -34,11 +37,13 @@ public class Chefstock extends Chef{
                 if(e1.ligne[i].place[j]!=null) {
                     if (e1.ligne[i].place[j].piece.nom.equals(nom)) {
                         if(memid==-1) {
+                            actif=true;
                             memid=e1.ligne[i].place[j].id;
                             e1.ligne[i].place[j].volume--;
                             e1.ligne[i].place[j] = null;
                         }
                         else if(memid==e1.ligne[i].place[j].id){
+                            actif=true;
                             e1.ligne[i].place[j].volume--;
                             e1.ligne[i].place[j] = null;
                         }
@@ -46,6 +51,7 @@ public class Chefstock extends Chef{
                 }
             }
         }
+
     }
     public int deplacerlot(Entrepot e1, int idlot, int rangee1, int rangee2) {
         int vol=-1;
@@ -66,7 +72,7 @@ public class Chefstock extends Chef{
 
         int a2=0;
         for(int j2 = 0; j2<e1.n ; j2++) {
-            if(e1.ligne[rangee2].place[j2]== null) {
+            if(e1.ligne[rangee2].place[j2]== null || (a2!=0 &&e1.ligne[rangee2].place[j2].id==idlot)) {
                 a2++;
             }
             else {
