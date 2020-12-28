@@ -19,8 +19,9 @@ public class Chefstock extends Chef{
         for(int i=0;i<e1.m;i++){
             for(int j=0;j<e1.n;j++){
                 if(e1.ligne[i].place[j]!=null) {
-                    actif=true;
+
                     if (e1.ligne[i].place[j].id == idlot) {
+                        actif=true;
                         e1.ligne[i].place[j].volume--;
                         e1.ligne[i].place[j]=null;
                     }

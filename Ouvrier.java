@@ -44,13 +44,15 @@ public class Ouvrier extends Personne {
             for(int j=0;j<e1.n;j++){
                 if(e1.ligne[i].place[j]!=null) {
                     if (e1.ligne[i].place[j].piece.nom.equals(nom)) {
-                        actif=true;
+
                         if(memid==-1) {
+                            actif=true;
                             memid=e1.ligne[i].place[j].id;
                             e1.ligne[i].place[j].volume--;
                             e1.ligne[i].place[j] = null;
                         }
                         else if(memid==e1.ligne[i].place[j].id){
+                            actif=true;
                             e1.ligne[i].place[j].volume--;
                             e1.ligne[i].place[j] = null;
                         }
