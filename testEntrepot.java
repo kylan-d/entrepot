@@ -21,7 +21,66 @@ public class testEntrepot {
   EntrepotUnderTest=null;
   LotPiece.i=1;
  }
- @ParameterizedTest()
+
+ @ParameterizedTest
+ @ValueSource(ints = { 0,1,2,3,4 })
+ void recruterouvirer_taille(int ntab){
+     EntrepotUnderTest.recruterchefstock("paulai", "jacquassj");
+     int a=EntrepotUnderTest.recruterouvrier("paulie", "jacquiez", "cuisine");
+     int b=EntrepotUnderTest.recruterouvrier("pauler", "jacquese", "salledebain");
+     int c=EntrepotUnderTest.recruterouvrier("pauloj", "jacquott", "toilette");
+     int d=EntrepotUnderTest.recruterouvrier("paulak", "jacquassd", "salleamanger");
+     int e=EntrepotUnderTest.recruterouvrier("paulim", "jacquier", "salle");
+     int recac[]={a,b,c,d,e};
+     int recex[]={1,1,1,1,-1};
+     assertEquals(recex[ntab],recac[ntab]);
+ }
+
+    @Test
+    void licencierouvirer_actif(){
+        EntrepotUnderTest.recruterchefbrico("paulai", "jacquassj");
+        EntrepotUnderTest.recruterouvrier("paulie", "jacquiez", "cuisine");
+        EntrepotUnderTest.recruterouvrier("pauler", "jacquese", "salledebain");
+        EntrepotUnderTest.recruterouvrier("pauloj", "jacquott", "toilette");
+       EntrepotUnderTest.recruterouvrier("paulak", "jacquassd", "salleamanger");
+        EntrepotUnderTest.ajoutlot(new LotPiece(1,"ee",5,1));
+        EntrepotUnderTest.ajoutlot(new LotPiece(50,"ef",5,1));
+        EntrepotUnderTest.ajoutlot(new LotPiece(100,"eg",5,1));
+        EntrepotUnderTest.ajoutlot(new LotPiece(100,"eg",5,1));
+        EntrepotUnderTest.licencierOuvrier();
+        assertEquals(5,EntrepotUnderTest.compteactif()+EntrepotUnderTest.compteinactif());
+    }
+
+    @Test
+    void licencierchef_equipepleine(){
+        EntrepotUnderTest.recruterchefbrico("paulai", "jacquassj");
+        EntrepotUnderTest.recruterouvrier("paulie", "jacquiez", "cuisine");
+        EntrepotUnderTest.recruterouvrier("pauler", "jacquese", "salledebain");
+        EntrepotUnderTest.recruterouvrier("pauloj", "jacquott", "toilette");
+        EntrepotUnderTest.recruterouvrier("paulak", "jacquassd", "salleamanger");
+        EntrepotUnderTest.recruterchefstock("paulain", "jacquassj");
+        EntrepotUnderTest.recruterouvrier("pauloj", "jacquottt", "toilette");
+        EntrepotUnderTest.licencierOuvrier("cuisine");
+        EntrepotUnderTest.licencierChefbrico();
+        assertEquals(5,EntrepotUnderTest.compteactif()+EntrepotUnderTest.compteinactif());
+    }
+
+    @Test
+    void payer_verif(){
+        EntrepotUnderTest.recruterchefbrico("paulai", "jacquassj");
+        EntrepotUnderTest.recruterouvrier("paulie", "jacquiez", "cuisine");
+        EntrepotUnderTest.recruterouvrier("pauler", "jacquese", "salledebain");
+        EntrepotUnderTest.recruterouvrier("pauloj", "jacquott", "toilette");
+        EntrepotUnderTest.recruterouvrier("paulak", "jacquassd", "salleamanger");
+        EntrepotUnderTest.recruterchefstock("paulain", "jacquassj");
+        EntrepotUnderTest.recruterouvrier("pauloj", "jacquottt", "toilette");
+        EntrepotUnderTest.licencierOuvrier("cuisine");
+        EntrepotUnderTest.licencierChefbrico();
+        EntrepotUnderTest.payer();
+        assertEquals(30,10000-EntrepotUnderTest.tresorerie);
+    }
+
+    @ParameterizedTest()
  @CsvSource({ "ee,true", "ef,true", "eg,true","eh,false","ei,false" })
  void lotajoute_estcontenu(String arg,boolean ajout){
   EntrepotUnderTest.recruterchefbrico("paul", "jacques");
@@ -256,5 +315,49 @@ public class testEntrepot {
                 }
             }
         assertEquals(100,volrest);
+    }
+
+    @ParameterizedTest
+    @CsvSource({ "ee,true", "e,false" })
+    void montermeuble_complet(String piece,boolean expected){
+        EntrepotUnderTest.recruterchefbrico("paul", "jacques");
+        EntrepotUnderTest.recruterchefstock("paulo", "jacquot");
+        EntrepotUnderTest.recruterchefstock("paula", "jacquass");
+        EntrepotUnderTest.recruterchefstock("pauli", "jacquie");
+        EntrepotUnderTest.recruterchefstock("pauly", "jacquesi");
+        EntrepotUnderTest.recruterchefstock("paulou", "jacquotu");
+        EntrepotUnderTest.recruterchefstock("paulai", "jacquassj");
+        EntrepotUnderTest.recruterchefstock("paul", "jacques");
+        EntrepotUnderTest.recruterchefstock("paulo", "jacquot");
+        EntrepotUnderTest.recruterchefstock("paula", "jacquass");
+        EntrepotUnderTest.recruterchefstock("pauli", "jacquie");
+        EntrepotUnderTest.recruterchefstock("pauly", "jacquesi");
+        EntrepotUnderTest.recruterchefstock("paulou", "jacquotu");
+        EntrepotUnderTest.recruterchefstock("paulai", "jacquassj");
+        EntrepotUnderTest.ajoutlot(new LotPiece(1, piece, 5, 1));
+        EntrepotUnderTest.ajoutlot(new LotPiece(50, "ef", 5, 1));
+        EntrepotUnderTest.ajoutlot(new LotPiece(50, "eg", 5, 1));
+        EntrepotUnderTest.ajoutlot(new LotPiece(50, "eh", 5, 1));
+        EntrepotUnderTest.ajoutlot(new LotPiece(100, "ei", 5, 1));
+        Meuble a= new Meuble("lit","chambre",5);
+        a.addcompo(new Paire(1,"ee"));
+        a.addcompo(new Paire(50,"ef"));
+        a.addcompo(new Paire(50,"eg"));
+        a.addcompo(new Paire(50,"eh"));
+        a.addcompo(new Paire(100,"ei"));
+        EntrepotUnderTest.montermeuble(a);
+        int volrest=0;
+        for(int i=0;i<EntrepotUnderTest.m;i++) {
+            for (int j = 0; j < EntrepotUnderTest.n; j++) {
+                if (EntrepotUnderTest.ligne[i].place[j] != null) {
+                    volrest++;
+                }
+            }
+        }
+        boolean act=false;
+        if(volrest==0 && EntrepotUnderTest.tresorerie==10251){
+            act=true;
+        }
+        assertEquals(expected,act);
     }
 }

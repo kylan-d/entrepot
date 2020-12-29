@@ -105,10 +105,16 @@ public class Entrepot {
                         a+= (4-chef_equipe.get(j).tailleeq);
                         if(a>=chef_equipe.get(i).tailleeq){
                             for(int k=0;k<chef_equipe.size();k++){
-                                while(chef_equipe.get(k).tailleeq<4 && chef_equipe.get(i).tailleeq!=0 && i!=k){
-                                    chef_equipe.get(k).liste_ouv[chef_equipe.get(k).tailleeq]=chef_equipe.get(i).liste_ouv[chef_equipe.get(i).tailleeq-1];
-                                    chef_equipe.get(k).tailleeq++;
-                                    chef_equipe.get(i).tailleeq=chef_equipe.get(i).tailleeq-1;}
+                                if(chef_equipe.get(k).tailleeq<4 && chef_equipe.get(i).tailleeq!=0 && i!=k){
+                                    for(int chgt2=0;chgt2<4;chgt2++){
+                                        for(int chgt=0;chgt<4;chgt++){
+                                            if(chef_equipe.get(k).liste_ouv[chgt]==null && chef_equipe.get(i).liste_ouv[3-chgt2]!=null){
+                                                chef_equipe.get(k).liste_ouv[chgt]=chef_equipe.get(i).liste_ouv[3-chgt2];
+
+                                                chef_equipe.get(i).liste_ouv[3-chgt2]=null;
+                                                chef_equipe.get(k).tailleeq++;
+                                                chef_equipe.get(i).tailleeq=chef_equipe.get(i).tailleeq-1;
+                                            }}}}
                                 if(chef_equipe.get(i).tailleeq == 0){
                                     chef_equipe.remove(i);
                                     res = 1;
@@ -139,14 +145,20 @@ public class Entrepot {
                     for(int j=0;j<chef_equipe.size();j++){
                         if(i!=j){
                             a+= (4-chef_equipe.get(j).tailleeq);
+
                             if(a>=chef_equipe.get(i).tailleeq){
                                 for(int k=0;k<chef_equipe.size();k++){
-                                    while(chef_equipe.get(k).tailleeq<4 && chef_equipe.get(i).tailleeq!=0 && i!=k){
-                                        chef_equipe.get(k).liste_ouv[chef_equipe.get(k).tailleeq]=chef_equipe.get(i).liste_ouv[chef_equipe.get(i).tailleeq-1];
 
+                                    if(chef_equipe.get(k).tailleeq<4 && chef_equipe.get(i).tailleeq!=0 && i!=k){
+                                        for(int chgt2=0;chgt2<4;chgt2++){
+                                            for(int chgt=0;chgt<4;chgt++){
+                                            if(chef_equipe.get(k).liste_ouv[chgt]==null && chef_equipe.get(i).liste_ouv[3-chgt2]!=null){
+                                        chef_equipe.get(k).liste_ouv[chgt]=chef_equipe.get(i).liste_ouv[3-chgt2];
+
+                                        chef_equipe.get(i).liste_ouv[3-chgt2]=null;
                                         chef_equipe.get(k).tailleeq++;
                                         chef_equipe.get(i).tailleeq=chef_equipe.get(i).tailleeq-1;
-                                    }
+                                    }}}}
                                     if(chef_equipe.get(i).tailleeq==0){
                                         chef_equipe.remove(i);
                                         res =  1;
@@ -182,10 +194,16 @@ public class Entrepot {
                             a+= (4-chef_equipe.get(j).tailleeq);
                             if(a>=chef_equipe.get(i).tailleeq){
                                 for(int k=0;k<chef_equipe.size();k++){
-                                    while(chef_equipe.get(k).tailleeq<4 && chef_equipe.get(i).tailleeq!=0 && i!=k){
-                                        chef_equipe.get(k).liste_ouv[chef_equipe.get(k).tailleeq]=chef_equipe.get(i).liste_ouv[chef_equipe.get(i).tailleeq-1];
-                                        chef_equipe.get(k).tailleeq++;
-                                        chef_equipe.get(i).tailleeq=chef_equipe.get(i).tailleeq-1;}
+                                    if(chef_equipe.get(k).tailleeq<4 && chef_equipe.get(i).tailleeq!=0 && i!=k){
+                                        for(int chgt2=0;chgt2<4;chgt2++){
+                                            for(int chgt=0;chgt<4;chgt++){
+                                                if(chef_equipe.get(k).liste_ouv[chgt]==null && chef_equipe.get(i).liste_ouv[3-chgt2]!=null){
+                                                    chef_equipe.get(k).liste_ouv[chgt]=chef_equipe.get(i).liste_ouv[3-chgt2];
+
+                                                    chef_equipe.get(i).liste_ouv[3-chgt2]=null;
+                                                    chef_equipe.get(k).tailleeq++;
+                                                    chef_equipe.get(i).tailleeq=chef_equipe.get(i).tailleeq-1;
+                                                }}}}
                                     if(chef_equipe.get(i).tailleeq==0){
                                         chef_equipe.remove(i);
                                         res = 1;
@@ -221,11 +239,16 @@ public class Entrepot {
                             a+=(4-chef_equipe.get(j).tailleeq);
                             if(a>=chef_equipe.get(i).tailleeq){
                                 for(int k=0;k<chef_equipe.size();k++){
-                                    while(chef_equipe.get(k).tailleeq<4 && chef_equipe.get(i).tailleeq!=0 && i!=k){
-                                        chef_equipe.get(k).liste_ouv[chef_equipe.get(k).tailleeq]=chef_equipe.get(i).liste_ouv[chef_equipe.get(i).tailleeq-1];
-                                        chef_equipe.get(k).tailleeq++;
-                                        chef_equipe.get(i).tailleeq=chef_equipe.get(i).tailleeq-1;
-                                    }
+                                    if(chef_equipe.get(k).tailleeq<4 && chef_equipe.get(i).tailleeq!=0 && i!=k){
+                                        for(int chgt2=0;chgt2<4;chgt2++){
+                                            for(int chgt=0;chgt<4;chgt++){
+                                                if(chef_equipe.get(k).liste_ouv[chgt]==null && chef_equipe.get(i).liste_ouv[3-chgt2]!=null){
+                                                    chef_equipe.get(k).liste_ouv[chgt]=chef_equipe.get(i).liste_ouv[3-chgt2];
+                                                    System.out.println(chgt);
+                                                    chef_equipe.get(i).liste_ouv[3-chgt2]=null;
+                                                    chef_equipe.get(k).tailleeq++;
+                                                    chef_equipe.get(i).tailleeq=chef_equipe.get(i).tailleeq-1;
+                                                }}}}
                                     if(chef_equipe.get(i).tailleeq==0){
                                         chef_equipe.remove(i);
                                         res = 1;
@@ -262,11 +285,16 @@ public class Entrepot {
                             a+=(4-chef_equipe.get(j).tailleeq);
                             if(a>=chef_equipe.get(i).tailleeq){
                                 for(int k=0;k<chef_equipe.size();k++){
-                                    while(chef_equipe.get(k).tailleeq<4 && chef_equipe.get(i).tailleeq!=0 && i!=k){
-                                        chef_equipe.get(k).liste_ouv[chef_equipe.get(k).tailleeq]=chef_equipe.get(i).liste_ouv[chef_equipe.get(i).tailleeq-1];
-
-                                        chef_equipe.get(k).tailleeq++;
-                                        chef_equipe.get(i).tailleeq=chef_equipe.get(i).tailleeq-1;}
+                                    if(chef_equipe.get(k).tailleeq<4 && chef_equipe.get(i).tailleeq!=0 && i!=k){
+                                        for(int chgt2=0;chgt2<4;chgt2++){
+                                            for(int chgt=0;chgt<4;chgt++){
+                                                if(chef_equipe.get(k).liste_ouv[chgt]==null && chef_equipe.get(i).liste_ouv[3-chgt2]!=null){
+                                                    chef_equipe.get(k).liste_ouv[chgt]=chef_equipe.get(i).liste_ouv[3-chgt2];
+                                                    System.out.println(chgt);
+                                                    chef_equipe.get(i).liste_ouv[3-chgt2]=null;
+                                                    chef_equipe.get(k).tailleeq++;
+                                                    chef_equipe.get(i).tailleeq=chef_equipe.get(i).tailleeq-1;
+                                                }}}}
                                     if(chef_equipe.get(i).tailleeq==0){
                                         chef_equipe.remove(i);
                                         res = 1;
