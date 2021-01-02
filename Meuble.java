@@ -32,6 +32,7 @@ public class Meuble {
         this.setNom(nom);
         this.setPiece(piece);
         this.setDuree(duree);
+        this.setId(i++);
         this.setListe_lot_piece(new ArrayList<Paire>());
 
     }

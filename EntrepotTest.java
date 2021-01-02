@@ -345,7 +345,7 @@ public class EntrepotTest {
         a.addcompo(new Paire(50,"eg"));
         a.addcompo(new Paire(50,"eh"));
         a.addcompo(new Paire(100,"ei"));
-        EntrepotUnderTest.montermeuble2(a);
+        EntrepotUnderTest.montermeuble(a);
         int volrest=0;
         for(int i=0;i<EntrepotUnderTest.getM();i++) {
             for (int j = 0; j < EntrepotUnderTest.getN(); j++) {

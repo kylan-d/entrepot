@@ -736,7 +736,7 @@ public class Entrepot {
      * @param m correspond au {@link Meuble} qui doit être construit.
      * @return return 1 si le {@link Meuble} est monté, -1 pour le contraire.
      */
-    public int  montermeuble(Meuble m){
+    public int  montermeublebis(Meuble m){
         int res = -1;
         recherche:
         for(int lg=0;lg<this.m;lg++){
@@ -870,13 +870,6 @@ public class Entrepot {
             if(chef_equipe.get(i).isActif()==false && chef_equipe.get(i) instanceof Chefbrico){
                 nbinact++;
             }
-            for(int j=0;j<4;j++){
-                if(chef_equipe.get(i).getOuv(j)!=null){ //chef_equipe.get(i).liste_ouv[j]!=null
-                    if(chef_equipe.get(i).getOuv(j).isActif()==false){ // chef_equipe.get(i).liste_ouv[j].isActif()==false
-                        nbinact++;
-                    }
-                }
-            }
         }
         return nbinact;
     }
@@ -890,13 +883,6 @@ public class Entrepot {
         for(int i=0;i<chef_equipe.size();i++){
             if(chef_equipe.get(i).isActif()==false && chef_equipe.get(i) instanceof Chefstock){
                 nbinact++;
-            }
-            for(int j=0;j<4;j++){
-                if(chef_equipe.get(i).getOuv(j)!=null){ //chef_equipe.get(i).liste_ouv[j]!=null
-                    if(chef_equipe.get(i).getOuv(j).isActif()==false){ //chef_equipe.get(i).liste_ouv[j].isActif()==false
-                        nbinact++;
-                    }
-                }
             }
         }
         return nbinact;
@@ -1162,7 +1148,7 @@ public class Entrepot {
             }
         }}
 
-    public int  montermeuble2(Meuble m){
+    public int  montermeuble(Meuble m){
         ArrayList<Integer> pm =new ArrayList<Integer>();
         ArrayList<Integer> pn =new ArrayList<Integer>();
         ArrayList<Integer> lvol =new ArrayList<Integer>();
@@ -1257,91 +1243,12 @@ public class Entrepot {
         if(finir==-1) {
             meuble_nonfini.add(m);
         }
-        return finir;
 
-        //       for(int i=0;i<m.liste_lot_piece.size();i++){
-//
-        //          //System.out.println(a);
-        //        if(a!=1){pierest++;}
-        //      a=0;
-        //    recherche:
-        //  for(int im=0;im<this.m;im++){
-        //    for(int in=0;in<this.n;in++){
-        //      if(ligne[im].place[in]!=null){
-        //        if(ligne[im].place[in].piece.nom.equals(m.liste_lot_piece.get(i).type)){
-        //          if(ligne[im].place[in].volume>=m.liste_lot_piece.get(i).volume){
-        //            double pr=ligne[im].place[in].piece.prix;
-        //          int b=retirerlot(im,in,m.liste_lot_piece.get(i).volume);
-        //        if(b==-1){res = -1; break recherche;}
-        //      m.prix=m.prix+(m.liste_lot_piece.get(i).volume*pr);
-        //    m.liste_lot_piece.get(i).volume=0;
-        //  a=1;
+            return finir;
 
-//                            }
-        //                          else{
-        //                            double pr2=ligne[im].place[in].piece.prix;
-        //                          int volret=ligne[im].place[in].volume;
-        //                        int b2=retirerlot(im,in,ligne[im].place[in].volume);
-//
-        //                              if(b2==-1){
-        //                                res = -1;
-        //                              break recherche;
-        //                        }
-        //                    m.prix=m.prix+(m.liste_lot_piece.get(i).volume*pr2);
-        //                     m.liste_lot_piece.get(i).volume=m.liste_lot_piece.get(i).volume-volret;
-        //                }
-        //          }if(a==1){break;}
-        //    }
-        //}
-        //             if(a==1){break;}
-        //       }
-        //     if(a!=1){pierest++;}
-        //}
-        //     if(pierest!=0){
-        //       res =-1;
-        // }
-        //       int parc=0;
-        //     while(parc<m.liste_lot_piece.size()){
-        //       if(m.liste_lot_piece.get(parc).volume==0){
-        //         m.liste_lot_piece.remove(parc);
-        //   }
-        // else{
-        //   parc++;
-        //        }
-//
-        //      }
-        //    System.out.println(pierest+" piecerestante");
-        //  if(res==-1){return -1;}
-        //res=-1;
-        //    sortie:
-        //  for(int i=0;i<chef_equipe.size();i++){
 
-        //     if(chef_equipe.get(i) instanceof Chefbrico && chef_equipe.get(i).actif==false){
-        //       Chefbrico c= (Chefbrico)chef_equipe.get(i);
-        //     c.monterMeuble(m);
-        //   System.out.println("on termine un meuble");
-        // tresorerie += m.prix;
-//                tempo += m.calculerPrix(ligne);
-        //res = 1;
-//                System.out.println("llaaa");
-        //              break sortie;
-        //        }
-//
-        //          for(int j=0;j<4;j++){
-        //            if(chef_equipe.get(i).liste_ouv[j]!=null){
-        //              if(chef_equipe.get(i).liste_ouv[j].actif==false && chef_equipe.get(i).liste_ouv[j].specialite.equals(m.piece)){
-        //                chef_equipe.get(i).liste_ouv[j].monterMeuble(m);
-        //              System.out.println("on termine un meuble");
-        //            tresorerie += m.prix;
-//            //            tempo += m.calculerPrix(ligne);
-        //        res = 1;
-        //      break sortie;
-        //}
-        //    }
-        //}
-        // }
-        //return res;
     }
+
     public boolean dejapris(int im,int in){
         boolean pris=false;
         for(int i=0;i<liste_reservation.size();i++){

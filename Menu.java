@@ -210,7 +210,7 @@ public class Menu {
             int pas_de_temps=0;
             simu:
             while (true) {
-                System.out.println(ANSI_PURPLE+"Que voulez vous faire ensuite?\npour recevoir une commande de meuble: tapez meuble\npour recevoir un lot: tapez lot\npour ne rien faire: tapez rien\npour quitter: tapez quitter\n pour afficher les infos de l'entrepot: taper afficher "+ANSI_RESET);
+                System.out.println(ANSI_PURPLE+"Que voulez vous faire ensuite?\npour recevoir une commande de meuble: tapez meuble\npour recevoir un lot: tapez lot\npour ne rien faire: tapez rien\npour quitter: tapez quitter\n pour afficher les infos de l'entrepot et ne rien faire pendant un pas de temps: taper afficher "+ANSI_RESET);
                 String testst = sc3.next();
                 switch (testst) {
                     case "meuble":
@@ -233,10 +233,7 @@ public class Menu {
                         }
                         int test_meuble = entrepot.montermeuble(meuble);
                         System.out.println(test_meuble);
-                        if (test_meuble == -1) {
 
-                            entrepot.getMeuble_nonfini().add(meuble);
-                        }
                         System.out.println(entrepot.getTresorerie());
                         pas_de_temps++;
                         break;
@@ -268,7 +265,7 @@ public class Menu {
                 int imeu = 0;
                 while (imeu < entrepot.getMeuble_nonfini().size()) {
 
-                    int testm = entrepot.montermeuble(entrepot.getMeuble_nonfini().get(imeu));
+                    int testm = entrepot.finirmeuble(entrepot.getMeuble_nonfini().get(imeu));
                     if (testm == 1) {
                         entrepot.getMeuble_nonfini().remove(imeu);
 
@@ -381,20 +378,16 @@ public class Menu {
                     meubleaj.addcompo(new Paire(prob5, entrepot.getNomPiece(prob4))); //entrepot.nompiece[prob4]
                 }
                 int test = entrepot.montermeuble(meubleaj);
-                if (test == -1) {
-                    entrepot.getMeuble_nonfini().add(meubleaj); //meuble_nonfini.add(meubleaj)
-                }
             } else {
                 System.out.println(ANSI_PURPLE+"RIEN"+ANSI_RESET);
                 //rien
             }
             int imeu = 0;
-            while (imeu < entrepot.getMeuble_nonfini().size()) { //entrepot.meuble_nonfini.size()
+            while (imeu < entrepot.getMeuble_nonfini().size()) {
 
-                int testm = entrepot.montermeuble(entrepot.getMeuble_nonfini().get(imeu)); //entrepot.meuble_nonfini.get(imeu)
-                System.out.println("test"+testm);
+                int testm = entrepot.finirmeuble(entrepot.getMeuble_nonfini().get(imeu));
                 if (testm == 1) {
-                    entrepot.getMeuble_nonfini().remove(imeu); //entrepot.meuble_nonfini.remove(imeu)
+                    entrepot.getMeuble_nonfini().remove(imeu);
 
                 } else {
                     imeu++;
@@ -599,7 +592,7 @@ public class Menu {
             pourcent=sc.nextInt();
         }
 
-        String chemin = System.getProperty("user.dir") + "\\src\\projet\\" + nomFichier;
+        String chemin = "C:\\" + nomFichier;
         String line;
         ArrayList<String[]> informations = new ArrayList<String[]>();
         try {
@@ -645,14 +638,23 @@ public class Menu {
                     System.out.println(ANSI_RED+"Problème lors de la construction du meuble"+ANSI_RESET);
                 }
                 System.out.println(test_meuble);
-                if (test_meuble == -1) {
-                    entrepot.getMeuble_nonfini().add(meuble); //entrepot.meuble_nonfini.add(meuble)
-                }
             } else {
                 System.out.println(ANSI_RED+"Désolé, l'information de la ligne n° " + i + " n'a pas été exécuté."+ANSI_RESET);
             }
 
             entrepot.payer();
+            int imeu = 0;
+            while (imeu < entrepot.getMeuble_nonfini().size()) {
+
+                int testm = entrepot.finirmeuble(entrepot.getMeuble_nonfini().get(imeu));
+                if (testm == 1) {
+                    entrepot.getMeuble_nonfini().remove(imeu);
+
+                } else {
+                    imeu++;
+                }
+
+            }
             if(strat==1){
                 entrepot.strat1(i,xpasdetemps,inactmin,inactmax);
             }
