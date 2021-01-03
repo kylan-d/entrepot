@@ -20,6 +20,15 @@ Suivez le parametrage guidé de l'entrepot, la valeur des pourcentage ne doit pa
 
 La liste des noms de piece, des noms de lot, des noms de meuble, et des prix des pieces est deja parametré, vous pouvez la modifier à votre guise  dans la class entrepot dans les tableaux correspondant.
 
+Aussi à l'heure actuelles tout les meublles de la simulations aléatoires prennent 3 types de lots de volume compris entre 1 et 10, c'est modifiable en changeant cette partie du code dans la classe menu et dans la methode simu3
+                "for (int nblot = 0; nblot < 3; nblot++) {
+                    int prob4 = (int) (Math.random() * entrepot.getNompiece().length); //entrepot.nompiece.length
+                    int prob5 = 1 + (int) (Math.random() * (10));
+                    meubleaj.addcompo(new Paire(prob5, entrepot.getNomPiece(prob4))); //entrepot.nompiece[prob4]
+                }"
+remplacer le 3 pour le nombre de lot et le 10 pour le volume des lots
+
+
 Pour chaque simulation, il vous sera demandé de choisir une strategie de ressources humaines et et rangement de lot qui sera parametré si necessaire puis une strategie d'enlèvement de lot qui sera aussi paramétré si necessaire.
 
 Les differentes stratégies sont explicités dans le rapport.
