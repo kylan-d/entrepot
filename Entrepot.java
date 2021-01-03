@@ -86,6 +86,71 @@ public class Entrepot {
 
 
     /**
+     * Fonction qui correspond à la Simulation 4 (Strat 3)
+     */
+    public void Simul4(){
+        if(entrepot.compteinactif() >entrepot.compteactif()){
+            entrepot.licencierOuvrier();
+        }
+
+        String specialite = "";
+        int indice_meuble_nonfini = 0;
+        for(int i = 0; i<entrepot.getMeuble_nonfini().size();i++){
+            if(entrepot.getMeuble_nonfini().get(i)!=null){
+                specialite = entrepot.getMeuble_nonfini().get(i).getPiece();
+                indice_meuble_nonfini = i; 
+                break;
+            }
+        }        
+
+        try{
+            for(int j = 0; j<entrepot.getChef_equipe.size();j++){
+                if(entrepot.getTailleeq <4){
+                    Ouvrier o = new Ouvrier("Ou","Vrier",specialite);
+                    for(int k = 0; k<entrepot.getmeuble_nonfini().size();k++){
+                        if(i == k){
+                            int res = entrepot.montermeuble(entrepot.getmeuble_nonfini().get(i));
+                            if(res == 1){
+                                entrepot.getmeuble_nonfini.remove(entrepot.getmeuble_nonfini.get(k));
+                                entrepot.get_meublefini.add(entrepot.getmeuble_nonfini.get(k));
+                                break;
+                            }
+                            else{
+                                System.out.println("Une erreur est surevenue, le meuble n'a pas été monter");
+                                break;
+                            }
+                        }
+                    }
+                   
+                }
+                else if(entrepot.getTailleeq >4){
+                    if(m.getMeuble_nonfini.getDuree >2){
+                        Chefstock = new Chefstock("Chef","Stock");
+                        break;
+                    }
+                    else{
+                        Chefbrico = new Chefbrico("Chef","Brico");
+                        entrepot.montermeuble(m);
+                    }
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
      * Fonction qui affiche l'ensemble des {@link Meuble} (finis et non finis)
      */
     public void afficherMeuble() {
