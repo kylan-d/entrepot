@@ -86,79 +86,6 @@ public class Entrepot {
 
 
     /**
-     * Fonction qui correspond à la Simulation 4 (Strat 3)
-     */
-    public void Simul4(){
-        if(entrepot.compteinactif() > entrepot.compteactif()){
-            entrepot.licencierOuvrier();
-        }
-
-        String specialite = "";
-        int indice_meuble_nonfini = 0;
-        for(int i = 0; i<entrepot.getMeuble_nonfini().size();i++){
-            if(entrepot.getMeuble_nonfini().get(i)!=null){
-                specialite = entrepot.getMeuble_nonfini().get(i).getPiece();
-                indice_meuble_nonfini = i; 
-                break;
-            }
-        }        
-        int res = 0;
-        try{
-            for(int j = 0; j<entrepot.getChef_equipe.size();j++){
-                if(entrepot.getTailleeq <4){
-                    Ouvrier o = new Ouvrier("Ou","Vrier",specialite);
-                    for(int k = 0; k<entrepot.getmeuble_nonfini().size();k++){
-                        if(i == k){
-                            res = entrepot.montermeuble(entrepot.getmeuble_nonfini().get(i));
-                            if(res == 1){
-                                entrepot.getmeuble_nonfini.remove(entrepot.getmeuble_nonfini.get(k));
-                                entrepot.get_meublefini.add(entrepot.getmeuble_nonfini.get(k));
-                                break;
-                            }
-                            else{
-                                System.out.println("Une erreur est surevenue, le meuble n'a pas été monter");
-                                break;
-                            }
-                        }
-                    }
-                   
-                }
-                else if(entrepot.getTailleeq >4){
-                    if(m.getMeuble_nonfini.getDuree >2){
-                        Chefstock = new Chefstock("Chef","Stock");
-                        break;
-                    }
-                    else{
-                        Chefbrico = new Chefbrico("Chef","Brico");
-                        for(int l = 0; l<entrepot.getmeuble_nonfini().size();i++){
-                            if(i == l ){
-                                res = entrepot.monterMeuble(entrepot.getmeuble_nonfini().get(l));
-                                if(res == 1){
-                                    entrepot.getmeuble_nonfini.remove(entrepot.getmeuble_nonfini.get(k));
-                                    entrepot.getMeuble_fini.add(entrepot.getmeuble_nonfini.get(k));
-                                    break;
-                                })
-                            }                        }
-                    }
-            }
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
      * Fonction qui affiche l'ensemble des {@link Meuble} (finis et non finis)
      */
     public void afficherMeuble() {
@@ -775,6 +702,36 @@ public class Entrepot {
     }
 
     /**
+     * Fonction qui permet de retiré un {@link LotPiece} de l'Entrepot.
+     * @param id correspond a l'id du {@link LotPiece}.
+     * @param vol correspond au volume enlevé du {@link LotPiece} dans {@link Entrepot}.
+     * @return return 1 si le {@link LotPiece} est retiré, -1 pour le contraire.
+     */
+    public int retirerlot(int id,int vol){
+        int bm=-1;
+        int bn=-1;
+        recherche:
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(ligne[i].getPlace(j)!=null){
+                    if(ligne[i].getPlace(j).getId()==id){
+                        bm=i;
+                        bn=j;
+                        break recherche;
+                    }}
+            }
+        }
+        int ret;
+        if(bm==-1||bn==-1){
+            ret=-1;
+        }
+        else{
+            ret=retirerlot(bm,bn,vol);
+        }
+        return ret;
+    }
+
+    /**
      * Fonction qui permet de déplacer un {@link LotPiece} dans l'Entrepot.
      * @param m1 correspond à l'enplaceement initial du {@link LotPiece}.
      * @param m2 correspond à l'emplacement final du {@link LotPiece}.
@@ -804,71 +761,12 @@ public class Entrepot {
         return res;
     }
 
-    /**
-     * Fonction qui permet de construire un {@link Meuble}.
-     * @param m correspond au {@link Meuble} qui doit être construit.
-     * @return return 1 si le {@link Meuble} est monté, -1 pour le contraire.
-     */
-    public int  montermeublebis(Meuble m){
-        int res = -1;
-        recherche:
-        for(int lg=0;lg<this.m;lg++){
-            if(ligne[lg] !=null){ // On parcours les rangée
-                for(int pl=0;pl<this.n;pl++){  // On parcours les lots dans la rangée
-                    if(this.getLigne(lg).getPlace(pl) != null){ // Si dans la rangée, il y a des lots
-                        for(int i=0;i<m.getListe_lot_piece().size();i++){ // On parcours la liste des pièces nécéssaire au montage du meuble que l'on a passer en paramettre //int i=0;i<m.liste_lot_piece.size();i++
-                            if(this.getLigne(lg).getPlace(pl).getPiece().getNom().equals(m.getListe_lot_piece().get(i).getType())){ // Si on a la pièce dispo en entrepot //ligne[lg].place[pl].piece.nom.equals(m.liste_lot_piece.get(i).type
-                                if(this.getLigne(lg).getPlace(pl).getVolume()>=m.getListe_lot_piece().get(i).getVolume()){ // On check si il y a une qté suffisante //ligne[lg].place[pl].volume>=m.liste_lot_piece.get(i).volume
 
-                                    for(int j = 0; j<chef_equipe.size(); j++) {
-                                        System.out.println(chef_equipe.get(j).getPrenom());
-                                        if(chef_equipe.get(j) instanceof Chefbrico && chef_equipe.get(j).isActif() == false) {
-                                            double prix = m.calculerPrix(this.getLigne(lg).getPlace(pl));
-                                            int b = retirerlot(lg,pl,m.getListe_lot_piece().get(i).getVolume()); //lg,pl,m.liste_lot_piece.get(i).volume
-                                            Chefbrico c = (Chefbrico)chef_equipe.get(j);
-                                            c.monterMeuble(m);
-                                            tresorerie+=prix;
-                                            System.out.println("Lot retiré : "+b);
-                                            System.out.println("Meuble montée ! ");
-                                            res = 1;
-                                            break recherche;
-                                        }
-                                        else {
-                                            for(int k=0;k<chef_equipe.get(j).getListe_ouv().length; k++) { //int k=0;k<chef_equipe.get(j).liste_ouv.length; k++
-                                                if(chef_equipe.get(j).getOuv(k)!= null && chef_equipe.get(j).getOuv(k).isActif() == false && chef_equipe.get(j).getOuv(k).getSpecialite().equals(m.getPiece())) { //chef_equipe.get(j).liste_ouv[k]!= null && chef_equipe.get(j).liste_ouv[k].isActif() == false && chef_equipe.get(j).liste_ouv[k].getSpecialite().equals(m.piece)
-                                                    double prix = m.calculerPrix(this.getLigne(lg).getPlace(pl));
-                                                    int b = retirerlot(lg,pl,m.getListe_lot_piece().get(i).getVolume()); //lg,pl,m.liste_lot_piece.get(i).volume
-                                                    Ouvrier o = (Ouvrier)chef_equipe.get(j).getOuv(k); //(Ouvrier)chef_equipe.get(j).liste_ouv[k]
-                                                    o.monterMeuble(m);
-                                                    tresorerie+=prix;
-                                                    System.out.println("Meuble montée ! ");
-                                                    res = 1;
-                                                    break recherche;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                else {
-                                    System.out.println("Désolé, il n'y pas la quantité de pièce suffisante pour monter le meuble. ");
-                                }
-                            }
-                            else {
-                                System.out.println("Désolé, il n'y a pas de pièce dispo pour le montage du meuble");
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return res;
-    }
 
     /**
      * Fonction qui permet de rendre actif un {@link Chefbrico} ou un {@link Ouvrier}.
      */
     public void rendreactif(){
-        System.out.println("actifff");
         for(int i=0;i<chef_equipe.size();i++){
             if(chef_equipe.get(i) instanceof Chefbrico){
                 if(((Chefbrico) chef_equipe.get(i)).getPas_restantmeuble()>0){
@@ -1186,7 +1084,6 @@ public class Entrepot {
         }
         if(idplusrecentlot-idplusancienlot>nbconservationlot){
             retirerlot(idplusancienlot);
-            System.out.println("on supp un lot");
         }
 
 
@@ -1230,6 +1127,11 @@ public class Entrepot {
                 System.out.println("on supp un lot");
             }
         }}
+    /**
+     * Fonction qui permet de construire un {@link Meuble}.
+     * @param m correspond au {@link Meuble} qui doit être construit.
+     * @return return 1 si le {@link Meuble} est monté, -1 si il est en cours construction ou refusé car aucun ouvrier pour amener les lots, -2 si refusé car personne n'ayant la possibilité de monter le meuble ou -3 si les piéces demandé ne sont pas dans l'entrepot .
+     */
 
     public int  montermeuble(Meuble m){
         ArrayList<Integer> pm =new ArrayList<Integer>();
@@ -1265,7 +1167,7 @@ public class Entrepot {
                                 else{
                                     int raj=-1;
                                     for(int parcresa=0;parcresa<lotdejareser.size();parcresa++){
-                                        if(ligne[im].getPlace(in).getId()==lotdejareser.get(parcresa).idlot){
+                                        if(ligne[im].getPlace(in).getId()==lotdejareser.get(parcresa).getIdlot()){
                                             raj=parcresa;
                                         }
                                     }
@@ -1273,8 +1175,8 @@ public class Entrepot {
                                         lotdejareser.add(new Reservation(ligne[im].getPlace(in).getId(),0,m.getId(),ligne[im].getPlace(in).getPrix()));
                                         raj=lotdejareser.size()-1;
                                     }
-                                    if(volumelotreserve(ligne[im].getPlace(in).getId())+lotdejareser.get(raj).volumelot<ligne[im].getPlace(in).getVolume()){
-                                        lotdejareser.get(raj).volumelot++;
+                                    if(volumelotreserve(ligne[im].getPlace(in).getId())+lotdejareser.get(raj).getVolumelot()<ligne[im].getPlace(in).getVolume()){
+                                        lotdejareser.get(raj).setVolumelot(lotdejareser.get(raj).getVolumelot()+1);
                                         pm.add(im);
                                         pn.add(in);
                                         copielist.get(i).setVolume(copielist.get(i).getVolume()-1);
@@ -1287,14 +1189,6 @@ public class Entrepot {
                 }
             }}
 
-        // for(int ic=0;ic<pm.size();ic++){
-        //   for(int jc=0;jc<copielist.size();jc++){
-        //     if(copielist.get(jc).type==ligne[pm.get(ic)].place[pn.get(ic)].piece.nom && copielist.get(jc).volume>0){
-        //     copielist.get(jc).volume--;
-        //       break;
-        //     }
-        //   }
-        // }
         int testpiece=0;
         for(int pc=0;pc<copielist.size();pc++){
             if(copielist.get(pc).getVolume()>0){
@@ -1309,8 +1203,8 @@ public class Entrepot {
         for(int ir=0;ir<pm.size();ir++){
             present=0;
             for(int jr=0;jr<tableprereser.size();jr++){
-                if(tableprereser.get(jr).idlot==ligne[pm.get(ir)].getPlace(pn.get(ir)).getId()){
-                    tableprereser.get(jr).volumelot++;
+                if(tableprereser.get(jr).getIdlot()==ligne[pm.get(ir)].getPlace(pn.get(ir)).getId()){
+                    tableprereser.get(jr).setVolumelot(tableprereser.get(jr).getVolumelot()+1);
                     present=1;
                     break;
                 }
@@ -1331,57 +1225,50 @@ public class Entrepot {
 
 
     }
-
+    /**
+     * Fonction qui permet de verifier si le lot n'est pas réservé pour un autre meuble.
+     * @param im correspond a la ligne de  {@link Entrepot} ou se trouve le lot.
+     * @param in correspond a la place dans la {@link Rangee} ou se trouve le lot.
+     * @return true s'il est pris false sinon.
+     */
     public boolean dejapris(int im,int in){
         boolean pris=false;
         for(int i=0;i<liste_reservation.size();i++){
-            if(liste_reservation.get(i).idlot==ligne[im].getPlace(in).getId()){
+            if(liste_reservation.get(i).getIdlot()==ligne[im].getPlace(in).getId()){
                 pris=true;
             }
         }
         return pris;
     }
+    /**
+     * Fonction qui permet de verifier si le lot n'est pas réservé pour un autre meuble.
+     * @param idlot correspond au  {@link LotPiece} réservé.
+     * @return le volume réserver pour un lot donné.
+     */
     public int volumelotreserve(int idlot){
         int pris=0;
         for(int i=0;i<liste_reservation.size();i++){
-            if(liste_reservation.get(i).idlot==idlot){
+            if(liste_reservation.get(i).getIdlot()==idlot){
                 pris++;
             }
         }
         return pris;
     }
-    public int retirerlot(int id,int vol){
-        int bm=-1;
-        int bn=-1;
-        recherche:
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(ligne[i].getPlace(j)!=null){
-                    if(ligne[i].getPlace(j).getId()==id){
-                        bm=i;
-                        bn=j;
-                        break recherche;
-                    }}
-            }
-        }
-        int ret;
-        if(bm==-1||bn==-1){
-            ret=-1;
-        }
-        else{
-            ret=retirerlot(bm,bn,vol);
-        }
-        return ret;
-    }
+
+    /**
+     * Fonction qui permet de finir la construction d'un {@link Meuble}.
+     * @param m correspond au {@link Meuble} qui doit être finalisé.
+     * @return return 1 si le {@link Meuble} est monté, -1 si il est en  toujours en cours de construction .
+     */
     public int finirmeuble(Meuble m){
         int toutenleve=1;
         int i=0;
         while(i<liste_reservation.size()){
-            if(liste_reservation.get(i).idmeuble==m.id){
-                double pr=liste_reservation.get(i).prix;
-                int test=retirerlot(liste_reservation.get(i).idlot,liste_reservation.get(i).volumelot);
+            if(liste_reservation.get(i).getIdmeuble()==m.id){
+                double pr=liste_reservation.get(i).getPrix();
+                int test=retirerlot(liste_reservation.get(i).getIdlot(),liste_reservation.get(i).getVolumelot());
                 if(test==1){
-                    m.setPrix(m.getPrix()+liste_reservation.get(i).volumelot*pr);
+                    m.setPrix(m.getPrix()+liste_reservation.get(i).getVolumelot()*pr);
                     liste_reservation.remove(i);
                 }
                 else{
@@ -1404,7 +1291,6 @@ public class Entrepot {
                 tresorerie += m.getPrix();
 //                tempo += m.calculerPrix(ligne);
                 res = 1;
-                System.out.println("llaaa");
                 break sortie;
             }
 
