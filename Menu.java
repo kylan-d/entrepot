@@ -425,6 +425,54 @@ public class Menu {
         System.out.println(ANSI_BLUE+"Entrer 3 pour monter un nouveau meuble : "+ANSI_RESET);
     }
 
+
+    /**
+     * Fonction qui correspond à la Strategie n°3
+     */
+    public static void Simul4(){
+        if(entrepot.compteinactif() >entrepot.compteactif()){
+            entrepot.licencierOuvrier();
+        }
+
+        String specialite = "";
+        Meuble m = null;
+        for(int i = 0; i<entrepot.getMeuble_nonfini().size();i++){
+            if(entrepot.getMeuble_nonfini().get(i)!=null){
+                specialite = entrepot.getMeuble_nonfini().get(i).getPiece();
+                m = entrepot.getMeuble_nonfini().get(i);
+                break;
+            }
+        }        
+
+        try{
+            for(int j = 0; j<entrepot.getChef_equipe.size();j++){
+                if(entrepot.getTailleeq <4){
+                    Ouvrier o = new Ouvrier("Ou","Vrier",specialite);
+                    entrepot.montermeuble(m);
+                    break;
+                }
+                else if(entrepot.getTailleeq >4{
+                    if(m.getMeuble_nonfini.getDuree >2){
+                        Chefstock = new Chefstock("Chef","Stock");
+                        break;
+                    }
+                    else{
+                        Chefbrico = new Chefbrico("Chef","Brico");
+                        entrepot.montermeuble(m);
+                    }
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
     /**
      * Fonction qui va permettre le recrutement d'une {@link Personne} ({@link Chefstock}, {@link Chefbrico}, {@link Ouvrier}).
      */
