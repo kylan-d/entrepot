@@ -89,7 +89,7 @@ public class Entrepot {
      * Fonction qui correspond à la Simulation 4 (Strat 3)
      */
     public void Simul4(){
-        if(entrepot.compteinactif() >entrepot.compteactif()){
+        if(entrepot.compteinactif() > entrepot.compteactif()){
             entrepot.licencierOuvrier();
         }
 
@@ -102,14 +102,14 @@ public class Entrepot {
                 break;
             }
         }        
-
+        int res = 0;
         try{
             for(int j = 0; j<entrepot.getChef_equipe.size();j++){
                 if(entrepot.getTailleeq <4){
                     Ouvrier o = new Ouvrier("Ou","Vrier",specialite);
                     for(int k = 0; k<entrepot.getmeuble_nonfini().size();k++){
                         if(i == k){
-                            int res = entrepot.montermeuble(entrepot.getmeuble_nonfini().get(i));
+                            res = entrepot.montermeuble(entrepot.getmeuble_nonfini().get(i));
                             if(res == 1){
                                 entrepot.getmeuble_nonfini.remove(entrepot.getmeuble_nonfini.get(k));
                                 entrepot.get_meublefini.add(entrepot.getmeuble_nonfini.get(k));
@@ -130,7 +130,15 @@ public class Entrepot {
                     }
                     else{
                         Chefbrico = new Chefbrico("Chef","Brico");
-                        entrepot.montermeuble(m);
+                        for(int l = 0; l<entrepot.getmeuble_nonfini().size();i++){
+                            if(i == l ){
+                                res = entrepot.monterMeuble(entrepot.getmeuble_nonfini().get(l));
+                                if(res == 1){
+                                    entrepot.getmeuble_nonfini.remove(entrepot.getmeuble_nonfini.get(k));
+                                    entrepot.getMeuble_fini.add(entrepot.getmeuble_nonfini.get(k));
+                                    break;
+                                })
+                            }                        }
                     }
             }
         }
