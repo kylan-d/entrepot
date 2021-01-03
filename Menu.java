@@ -425,6 +425,13 @@ public class Menu {
         System.out.println(ANSI_BLUE+"Entrer 3 pour monter un nouveau meuble : "+ANSI_RESET);
     }
 
+
+
+
+
+
+
+
     /**
      * Fonction qui va permettre le recrutement d'une {@link Personne} ({@link Chefstock}, {@link Chefbrico}, {@link Ouvrier}).
      */
