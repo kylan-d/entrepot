@@ -1155,6 +1155,7 @@ public class Entrepot {
             for(int in=0;in<this.n;in++){
                 if(ligne[im].getPlace(in)!=null){
                     for(int i=0;i<copielist.size();i++){
+                        System.out.println("problémeé");
                         if(ligne[im].getPlace(in).getPiece().getNom().equals(copielist.get(i).getType())){
                             if(copielist.get(i).getVolume()>0){
                                 boolean pris=dejapris(im,in);
@@ -1264,6 +1265,7 @@ public class Entrepot {
         int toutenleve=1;
         int i=0;
         while(i<liste_reservation.size()){
+            System.out.println("problémeé2");
             if(liste_reservation.get(i).getIdmeuble()==m.id){
                 double pr=liste_reservation.get(i).getPrix();
                 int test=retirerlot(liste_reservation.get(i).getIdlot(),liste_reservation.get(i).getVolumelot());
@@ -1275,6 +1277,9 @@ public class Entrepot {
                     i++;
                     toutenleve=-1;
                 }
+            }
+            else{
+                i++;
             }
         }
         if(toutenleve==-1){

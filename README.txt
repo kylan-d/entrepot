@@ -22,3 +22,6 @@ La liste des noms de piece, des noms de lot, des noms de meuble, et des prix des
 
 Pour chaque simulation, il vous sera demandé de choisir une strategie de ressources humaines et et rangement de lot qui sera parametré si necessaire puis une strategie d'enlèvement de lot qui sera aussi paramétré si necessaire.
 
+Les differentes stratégies sont explicités dans le rapport.
+
+A la fin du simulation, vous pouvez revenir en arriere pour d'autre simulation dans l'entrepot ou changer d'entrepot, 
