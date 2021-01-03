@@ -1090,13 +1090,20 @@ public class Entrepot {
             for(int j=0;j<n;j++){
                 if(this.getLigne(i).getPlace(j)!=null){
                     if(idplusancienlot==-1){
+                        if(dejapris(i,j)==true){
+                            break;
+                        }
                         idplusancienlot=this.getLigne(i).getPlace(j).getId();
                     }
                     if(idplusrecentlot==-1){
                         idplusrecentlot=this.getLigne(i).getPlace(j).getId();
                     }
                     if(this.getLigne(i).getPlace(j).getId()<idplusancienlot){
+                        if(dejapris(i,j)==true){
+                            break;
+                        }
                         idplusancienlot=this.getLigne(i).getPlace(j).getId();
+
                     }
                     if(this.getLigne(i).getPlace(j).getId()>idplusrecentlot){
                         idplusrecentlot=this.getLigne(i).getPlace(j).getId();
@@ -1121,6 +1128,9 @@ public class Entrepot {
         int r=0;
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++) {
+                if(dejapris(i,j)==true){
+                    break;
+                }
                 if (this.getLigne(i).getPlace(j) != null) {
                     r=0;
                     for(int k=0;k<piece.size();k++){
